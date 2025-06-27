@@ -9,6 +9,7 @@ import About from "@/pages/about";
 import Team from "@/pages/team";
 import Resources from "@/pages/resources";
 import Events from "@/pages/events";
+import StudentsCorner from "@/pages/students-corner";
 import Contact from "@/pages/contact";
 import NotFound from "@/pages/not-found";
 
@@ -20,6 +21,7 @@ function Router() {
       <Route path="/team" component={Team} />
       <Route path="/resources" component={Resources} />
       <Route path="/events" component={Events} />
+      <Route path="/students-corner" component={StudentsCorner} />
       <Route path="/contact" component={Contact} />
       <Route component={NotFound} />
     </Switch>

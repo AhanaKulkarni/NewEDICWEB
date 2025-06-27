@@ -21,7 +21,7 @@ export default function Header() {
           </Link>
           
           {/* Desktop Navigation - Centered */}
-          <div className="hidden md:flex space-x-8 text-[var(--tcet-dark)] dark:text-white">
+          <div className="hidden md:flex space-x-6 text-[var(--tcet-dark)] dark:text-white">
             <Link 
               href="/about"
               className={`hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium ${
@@ -39,20 +39,28 @@ export default function Header() {
               Team
             </Link>
             <Link 
-              href="/resources"
-              className={`hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium ${
-                location === '/resources' ? 'text-[var(--tcet-blue)]' : ''
-              }`}
-            >
-              Resources
-            </Link>
-            <Link 
               href="/events"
               className={`hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium ${
                 location === '/events' ? 'text-[var(--tcet-blue)]' : ''
               }`}
             >
               Events
+            </Link>
+            <Link 
+              href="/students-corner"
+              className={`hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium ${
+                location === '/students-corner' ? 'text-[var(--tcet-blue)]' : ''
+              }`}
+            >
+              Student's Corner
+            </Link>
+            <Link 
+              href="/resources"
+              className={`hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium ${
+                location === '/resources' ? 'text-[var(--tcet-blue)]' : ''
+              }`}
+            >
+              Resources
             </Link>
             <Link 
               href="/contact"
@@ -106,15 +114,6 @@ export default function Header() {
                 Team
               </Link>
               <Link 
-                href="/resources" 
-                onClick={closeMobileMenu}
-                className={`text-[var(--tcet-dark)] dark:text-white hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium py-2 ${
-                  location === '/resources' ? 'text-[var(--tcet-blue)]' : ''
-                }`}
-              >
-                Resources
-              </Link>
-              <Link 
                 href="/events" 
                 onClick={closeMobileMenu}
                 className={`text-[var(--tcet-dark)] dark:text-white hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium py-2 ${
@@ -122,6 +121,24 @@ export default function Header() {
                 }`}
               >
                 Events
+              </Link>
+              <Link 
+                href="/students-corner" 
+                onClick={closeMobileMenu}
+                className={`text-[var(--tcet-dark)] dark:text-white hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium py-2 ${
+                  location === '/students-corner' ? 'text-[var(--tcet-blue)]' : ''
+                }`}
+              >
+                Student's Corner
+              </Link>
+              <Link 
+                href="/resources" 
+                onClick={closeMobileMenu}
+                className={`text-[var(--tcet-dark)] dark:text-white hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium py-2 ${
+                  location === '/resources' ? 'text-[var(--tcet-blue)]' : ''
+                }`}
+              >
+                Resources
               </Link>
               <Link 
                 href="/contact" 

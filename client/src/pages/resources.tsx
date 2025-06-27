@@ -1,185 +1,188 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { BookOpen, Download, ExternalLink, Video, FileText, Users, Lightbulb, TrendingUp, Award, Search } from "lucide-react";
+import { Plus, Download, FileText, Building, Beaker, Cpu, Wrench } from "lucide-react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
+import { useToast } from "@/hooks/use-toast";
 
-export default function Resources() {
-  const businessPlanTemplates = [
+export default function ResourcesLabs() {
+  const [selectedItems, setSelectedItems] = useState<Array<{id: string, name: string, lab: string, floor: string}>>([]);
+  const { toast } = useToast();
+
+  const labCategories = [
     {
-      title: "Lean Canvas Template",
-      description: "One-page business model template for rapid iteration and validation",
-      type: "PDF Template",
-      category: "Business Planning",
-      downloadUrl: "#",
-      featured: true
+      category: "Chemistry Labs",
+      icon: Beaker,
+      color: "bg-green-500",
+      labs: [
+        {
+          name: "Chemistry Lab - Ground Floor",
+          floor: "Ground Floor",
+          equipment: [
+            { name: "Distillation Assembly", quantity: 1, description: "Complete distillation setup for separation processes" },
+            { name: "Oil Bath with Stirrer", quantity: 1, description: "Temperature controlled heating with magnetic stirring" },
+            { name: "UV Apparatus", quantity: 1, description: "UV-Visible spectrophotometer for analysis" },
+            { name: "Colorimeter", quantity: 4, description: "Digital colorimeter for concentration analysis" },
+            { name: "pH Meter", quantity: 3, description: "Digital pH measurement device" },
+            { name: "Analytical Balance", quantity: 2, description: "High precision weighing balance" },
+            { name: "Centrifuge Machine", quantity: 2, description: "High-speed sample separation" },
+            { name: "Incubator", quantity: 1, description: "Temperature controlled sample incubation" }
+          ]
+        },
+        {
+          name: "Organic Chemistry Lab - First Floor",
+          floor: "First Floor",
+          equipment: [
+            { name: "Rotary Evaporator", quantity: 2, description: "Solvent removal under reduced pressure" },
+            { name: "Melting Point Apparatus", quantity: 3, description: "Compound identification and purity testing" },
+            { name: "Reflux Setup", quantity: 6, description: "Heating under reflux conditions" },
+            { name: "Separation Funnel", quantity: 8, description: "Liquid-liquid extraction" },
+            { name: "Heating Mantle", quantity: 10, description: "Controlled heating for round bottom flasks" },
+            { name: "Magnetic Stirrer", quantity: 12, description: "Uniform mixing of solutions" }
+          ]
+        }
+      ]
     },
     {
-      title: "Comprehensive Business Plan",
-      description: "Detailed 30-page business plan template with financial projections",
-      type: "Word Document",
-      category: "Business Planning", 
-      downloadUrl: "#"
+      category: "Computer Labs",
+      icon: Cpu,
+      color: "bg-blue-500",
+      labs: [
+        {
+          name: "Software Development Lab - Second Floor",
+          floor: "Second Floor",
+          equipment: [
+            { name: "High-Performance Workstations", quantity: 30, description: "Intel i7 processors with 16GB RAM" },
+            { name: "Development Software Suite", quantity: 30, description: "Visual Studio, IntelliJ, Eclipse IDEs" },
+            { name: "Database Servers", quantity: 3, description: "MySQL, PostgreSQL, MongoDB instances" },
+            { name: "Network Switches", quantity: 4, description: "Gigabit Ethernet connectivity" },
+            { name: "Projector System", quantity: 2, description: "4K display for presentations" },
+            { name: "Backup Power Supply", quantity: 1, description: "UPS system for continuous operation" }
+          ]
+        },
+        {
+          name: "AI/ML Research Lab - Third Floor",
+          floor: "Third Floor",
+          equipment: [
+            { name: "GPU Workstations", quantity: 10, description: "NVIDIA RTX 4090 for deep learning" },
+            { name: "High-Memory Servers", quantity: 3, description: "128GB RAM for large dataset processing" },
+            { name: "Cloud Computing Access", quantity: 1, description: "AWS/Azure credits for research" },
+            { name: "Python Environment", quantity: 10, description: "Anaconda with ML libraries" },
+            { name: "Data Storage Array", quantity: 1, description: "10TB network attached storage" },
+            { name: "Specialized Software", quantity: 1, description: "TensorFlow, PyTorch, MATLAB licenses" }
+          ]
+        }
+      ]
     },
     {
-      title: "Pitch Deck Template",
-      description: "Professional presentation template for investor pitches",
-      type: "PowerPoint",
-      category: "Presentations",
-      downloadUrl: "#",
-      featured: true
+      category: "Electronics Labs",
+      icon: Cpu,
+      color: "bg-purple-500",
+      labs: [
+        {
+          name: "Digital Electronics Lab - Second Floor",
+          floor: "Second Floor",
+          equipment: [
+            { name: "Digital Oscilloscope", quantity: 15, description: "100MHz bandwidth, 4-channel" },
+            { name: "Function Generator", quantity: 15, description: "Waveform generation up to 25MHz" },
+            { name: "Power Supply Unit", quantity: 20, description: "Variable DC power supply 0-30V" },
+            { name: "Digital Multimeter", quantity: 25, description: "High precision measurement" },
+            { name: "Breadboard Kit", quantity: 30, description: "Solderless circuit prototyping" },
+            { name: "Logic Analyzer", quantity: 5, description: "Multi-channel digital signal analysis" },
+            { name: "IC Tester", quantity: 3, description: "Integrated circuit functionality testing" },
+            { name: "Soldering Station", quantity: 10, description: "Temperature controlled soldering" }
+          ]
+        },
+        {
+          name: "Microprocessor Lab - Second Floor",
+          floor: "Second Floor",
+          equipment: [
+            { name: "Microcontroller Kits", quantity: 20, description: "Arduino, ESP32, STM32 development boards" },
+            { name: "In-Circuit Emulator", quantity: 5, description: "Real-time debugging and programming" },
+            { name: "Logic Probe Set", quantity: 15, description: "Digital signal testing" },
+            { name: "EPROM Programmer", quantity: 3, description: "Memory device programming" },
+            { name: "Stepper Motor Kit", quantity: 10, description: "Motor control experiments" },
+            { name: "Sensor Modules", quantity: 50, description: "Temperature, pressure, motion sensors" }
+          ]
+        }
+      ]
     },
     {
-      title: "Financial Model Template",
-      description: "Excel template for startup financial planning and projections",
-      type: "Excel Spreadsheet",
-      category: "Finance",
-      downloadUrl: "#"
+      category: "Mechanical Labs",
+      icon: Wrench,
+      color: "bg-orange-500",
+      labs: [
+        {
+          name: "Manufacturing Lab - Ground Floor",
+          floor: "Ground Floor",
+          equipment: [
+            { name: "CNC Milling Machine", quantity: 2, description: "3-axis computer controlled milling" },
+            { name: "Lathe Machine", quantity: 4, description: "Precision turning operations" },
+            { name: "3D Printer", quantity: 3, description: "FDM and SLA printing technology" },
+            { name: "Drilling Machine", quantity: 6, description: "Various bore size capabilities" },
+            { name: "Grinding Machine", quantity: 2, description: "Surface finishing operations" },
+            { name: "Measuring Instruments", quantity: 20, description: "Calipers, micrometers, gauges" },
+            { name: "Welding Equipment", quantity: 4, description: "Arc and MIG welding stations" },
+            { name: "Material Testing Machine", quantity: 1, description: "Tensile and compression testing" }
+          ]
+        },
+        {
+          name: "CAD/CAM Lab - First Floor",
+          floor: "First Floor",
+          equipment: [
+            { name: "CAD Workstations", quantity: 25, description: "SolidWorks, AutoCAD, CATIA licenses" },
+            { name: "Engineering Simulation Software", quantity: 25, description: "ANSYS, MATLAB Simulink" },
+            { name: "Plotting Machine", quantity: 2, description: "Large format technical drawings" },
+            { name: "3D Scanner", quantity: 1, description: "Reverse engineering capabilities" },
+            { name: "Graphics Tablets", quantity: 25, description: "Precision design input devices" },
+            { name: "High-Resolution Monitors", quantity: 25, description: "27-inch 4K displays for design work" }
+          ]
+        }
+      ]
     }
   ];
 
-  const learningMaterials = [
-    {
-      title: "Introduction to Entrepreneurship",
-      description: "Fundamentals of starting and running a successful business",
-      type: "Course Material",
-      category: "Fundamentals",
-      url: "#",
-      duration: "4 weeks"
-    },
-    {
-      title: "Market Research & Validation",
-      description: "Learn to validate your business ideas and understand market needs",
-      type: "Workshop Recording",
-      category: "Research",
-      url: "#",
-      duration: "2 hours"
-    },
-    {
-      title: "Product Development Lifecycle",
-      description: "From idea to market: complete product development guide",
-      type: "Video Series",
-      category: "Product",
-      url: "#",
-      duration: "6 hours"
-    },
-    {
-      title: "Startup Legal Basics",
-      description: "Essential legal knowledge for new entrepreneurs",
-      type: "Guide",
-      category: "Legal",
-      url: "#",
-      duration: "1 hour read"
+  const addToRequest = (equipment: any, lab: string, floor: string) => {
+    const item = {
+      id: `${lab}-${equipment.name}`,
+      name: equipment.name,
+      lab: lab,
+      floor: floor
+    };
+    
+    if (!selectedItems.find(i => i.id === item.id)) {
+      setSelectedItems([...selectedItems, item]);
+      toast({
+        title: "Added to Request",
+        description: `${equipment.name} added to your resource request`,
+      });
     }
-  ];
+  };
 
-  const toolsAndPlatforms = [
-    {
-      name: "Canva for Business",
-      description: "Design professional marketing materials and presentations",
-      category: "Design",
-      type: "Free/Premium",
-      url: "https://canva.com",
-      logo: "🎨"
-    },
-    {
-      name: "Google Workspace",
-      description: "Collaborative productivity suite for teams",
-      category: "Productivity",
-      type: "Free for students",
-      url: "https://workspace.google.com",
-      logo: "📊"
-    },
-    {
-      name: "Notion",
-      description: "All-in-one workspace for planning and organization",
-      category: "Organization",
-      type: "Free/Premium",
-      url: "https://notion.so",
-      logo: "📝"
-    },
-    {
-      name: "Zoom",
-      description: "Video conferencing for team meetings and investor calls",
-      category: "Communication",
-      type: "Free/Premium",
-      url: "https://zoom.us",
-      logo: "📹"
-    },
-    {
-      name: "Mailchimp",
-      description: "Email marketing and customer communication platform",
-      category: "Marketing",
-      type: "Free/Premium",
-      url: "https://mailchimp.com",
-      logo: "✉️"
-    },
-    {
-      name: "Stripe",
-      description: "Payment processing for online businesses",
-      category: "Finance",
-      type: "Pay per transaction",
-      url: "https://stripe.com",
-      logo: "💳"
-    }
-  ];
+  const removeFromRequest = (itemId: string) => {
+    setSelectedItems(selectedItems.filter(item => item.id !== itemId));
+  };
 
-  const fundingResources = [
-    {
-      title: "Government Startup Schemes",
-      description: "Information about government funding and support programs",
-      type: "Resource Guide",
-      category: "Government",
-      url: "#"
-    },
-    {
-      title: "Angel Investor Network",
-      description: "Connect with potential angel investors and mentors",
-      type: "Directory",
-      category: "Angel Investors",
-      url: "#"
-    },
-    {
-      title: "Venture Capital Guide",
-      description: "Understanding VC funding and how to approach investors",
-      type: "Guide",
-      category: "VC Funding",
-      url: "#"
-    },
-    {
-      title: "Crowdfunding Platforms",
-      description: "List of popular crowdfunding platforms and best practices",
-      type: "Directory",
-      category: "Crowdfunding", 
-      url: "#"
+  const generateInvoice = () => {
+    if (selectedItems.length === 0) {
+      toast({
+        title: "No Items Selected",
+        description: "Please add some equipment to your request first",
+        variant: "destructive"
+      });
+      return;
     }
-  ];
 
-  const successStories = [
-    {
-      title: "TechStart Solutions",
-      founder: "Rahul Mehta (TCET Alumni 2022)",
-      description: "AI-powered customer service platform serving 50+ companies",
-      achievement: "₹2 Crore funding raised",
-      category: "Technology"
-    },
-    {
-      title: "EcoGreen Innovations",
-      founder: "Priya Sharma (Current Final Year)",
-      description: "Sustainable packaging solutions for e-commerce companies",
-      achievement: "Pre-revenue stage, 5 pilot customers",
-      category: "Sustainability"
-    },
-    {
-      title: "EduTech Platform",
-      founder: "Amit Gupta (TCET Alumni 2023)",
-      description: "Online learning platform for technical skills",
-      achievement: "10,000+ active users",
-      category: "Education"
-    }
-  ];
+    // This would generate a PDF invoice
+    toast({
+      title: "Invoice Generated",
+      description: "Your resource request invoice has been generated and is ready for download",
+    });
+  };
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
@@ -190,20 +193,11 @@ export default function Resources() {
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold text-[var(--tcet-dark)] dark:text-white mb-6">
-              Resources & Tools
+              Lab Resources
             </h1>
-            <p className="text-xl text-[var(--tcet-dark)]/70 dark:text-white/70 leading-relaxed mb-8">
-              Everything you need to start, grow, and scale your entrepreneurial venture
+            <p className="text-xl text-[var(--tcet-dark)]/70 dark:text-white/70 leading-relaxed">
+              Access TCET's comprehensive collection of 70+ laboratory equipment and resources for your projects
             </p>
-            
-            {/* Search Bar */}
-            <div className="max-w-md mx-auto relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <Input 
-                placeholder="Search resources..." 
-                className="pl-10 py-3 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600"
-              />
-            </div>
           </div>
         </div>
       </section>
@@ -211,260 +205,199 @@ export default function Resources() {
       {/* Main Content */}
       <section className="py-20 bg-white dark:bg-gray-900">
         <div className="container mx-auto px-6">
-          <Tabs defaultValue="templates" className="max-w-7xl mx-auto">
-            <TabsList className="grid w-full grid-cols-5 mb-12">
-              <TabsTrigger value="templates">Templates</TabsTrigger>
-              <TabsTrigger value="learning">Learning</TabsTrigger>
-              <TabsTrigger value="tools">Tools</TabsTrigger>
-              <TabsTrigger value="funding">Funding</TabsTrigger>
-              <TabsTrigger value="stories">Success Stories</TabsTrigger>
+          <Tabs defaultValue="labs" className="max-w-7xl mx-auto">
+            <TabsList className="grid w-full grid-cols-2 mb-12">
+              <TabsTrigger value="labs">Laboratory Equipment</TabsTrigger>
+              <TabsTrigger value="request">Resource Request ({selectedItems.length})</TabsTrigger>
             </TabsList>
 
-            {/* Business Plan Templates */}
-            <TabsContent value="templates">
-              <div className="mb-8">
-                <h2 className="text-3xl font-bold text-[var(--tcet-dark)] dark:text-white mb-4">Business Templates</h2>
-                <p className="text-[var(--tcet-dark)]/70 dark:text-white/70 mb-8">
-                  Ready-to-use templates to accelerate your business planning process
-                </p>
-              </div>
-
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {businessPlanTemplates.map((template, index) => (
-                  <Card key={index} className={`hover:shadow-lg transition-all duration-300 ${template.featured ? 'ring-2 ring-[var(--tcet-blue)] ring-opacity-50' : ''}`}>
-                    <CardHeader>
-                      <div className="flex items-start justify-between">
-                        <div>
-                          <CardTitle className="text-lg text-[var(--tcet-dark)] dark:text-white mb-2">
-                            {template.title}
-                            {template.featured && (
-                              <span className="ml-2 px-2 py-1 bg-[var(--tcet-blue)] text-white text-xs rounded-full">Featured</span>
-                            )}
-                          </CardTitle>
-                          <div className="flex items-center gap-2 mb-2">
-                            <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-[var(--tcet-dark)] dark:text-white text-xs rounded">
-                              {template.category}
-                            </span>
-                            <span className="text-[var(--tcet-dark)]/60 dark:text-white/60 text-xs">
-                              {template.type}
-                            </span>
-                          </div>
-                        </div>
-                        <FileText className="w-6 h-6 text-[var(--tcet-blue)]" />
+            {/* Labs Content */}
+            <TabsContent value="labs">
+              <div className="space-y-8">
+                {labCategories.map((category, categoryIndex) => (
+                  <div key={categoryIndex} className="bg-gray-50 dark:bg-gray-800 p-8 rounded-xl">
+                    <div className="flex items-center mb-6">
+                      <div className={`w-12 h-12 ${category.color} rounded-lg flex items-center justify-center mr-4`}>
+                        <category.icon className="w-6 h-6 text-white" />
                       </div>
-                      <CardDescription>{template.description}</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <Button className="w-full bg-[var(--tcet-blue)] hover:bg-blue-700">
-                        <Download className="w-4 h-4 mr-2" />
-                        Download Template
-                      </Button>
-                    </CardContent>
-                  </Card>
+                      <h2 className="text-2xl font-bold text-[var(--tcet-dark)] dark:text-white">
+                        {category.category}
+                      </h2>
+                    </div>
+
+                    <Accordion type="multiple" className="space-y-4">
+                      {category.labs.map((lab, labIndex) => (
+                        <AccordionItem 
+                          key={labIndex} 
+                          value={`${categoryIndex}-${labIndex}`}
+                          className="bg-white dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden"
+                        >
+                          <AccordionTrigger className="px-6 py-4 hover:no-underline hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200">
+                            <div className="flex items-center justify-between w-full mr-4">
+                              <div className="flex items-center">
+                                <Building className="w-5 h-5 text-[var(--tcet-blue)] mr-3" />
+                                <div className="text-left">
+                                  <h3 className="font-semibold text-[var(--tcet-dark)] dark:text-white">
+                                    {lab.name}
+                                  </h3>
+                                  <p className="text-sm text-[var(--tcet-dark)]/60 dark:text-white/60">
+                                    {lab.floor} • {lab.equipment.length} Equipment Types
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </AccordionTrigger>
+                          <AccordionContent className="px-6 pb-6">
+                            <div className="grid md:grid-cols-2 gap-4">
+                              {lab.equipment.map((equipment, equipIndex) => (
+                                <Card key={equipIndex} className="hover:shadow-md transition-shadow duration-200">
+                                  <CardHeader className="pb-3">
+                                    <div className="flex items-start justify-between">
+                                      <div className="flex-1">
+                                        <CardTitle className="text-lg text-[var(--tcet-dark)] dark:text-white">
+                                          {equipment.name}
+                                        </CardTitle>
+                                        <div className="flex items-center mt-2">
+                                          <Badge variant="outline" className="mr-2">
+                                            Qty: {equipment.quantity}
+                                          </Badge>
+                                          <Badge variant="outline">
+                                            {lab.floor}
+                                          </Badge>
+                                        </div>
+                                      </div>
+                                      <Button
+                                        size="sm"
+                                        onClick={() => addToRequest(equipment, lab.name, lab.floor)}
+                                        className="bg-[var(--tcet-blue)] hover:bg-blue-700 ml-2"
+                                      >
+                                        <Plus className="w-4 h-4 mr-1" />
+                                        Add
+                                      </Button>
+                                    </div>
+                                  </CardHeader>
+                                  <CardContent>
+                                    <p className="text-sm text-[var(--tcet-dark)]/70 dark:text-white/70">
+                                      {equipment.description}
+                                    </p>
+                                  </CardContent>
+                                </Card>
+                              ))}
+                            </div>
+                          </AccordionContent>
+                        </AccordionItem>
+                      ))}
+                    </Accordion>
+                  </div>
                 ))}
               </div>
             </TabsContent>
 
-            {/* Learning Materials */}
-            <TabsContent value="learning">
-              <div className="mb-8">
-                <h2 className="text-3xl font-bold text-[var(--tcet-dark)] dark:text-white mb-4">Learning Materials</h2>
-                <p className="text-[var(--tcet-dark)]/70 dark:text-white/70 mb-8">
-                  Comprehensive educational resources to build your entrepreneurial skills
-                </p>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-6">
-                {learningMaterials.map((material, index) => (
-                  <Card key={index} className="hover:shadow-lg transition-all duration-300">
-                    <CardHeader>
-                      <div className="flex items-start justify-between">
-                        <div>
-                          <CardTitle className="text-lg text-[var(--tcet-dark)] dark:text-white mb-2">
-                            {material.title}
-                          </CardTitle>
-                          <div className="flex items-center gap-2 mb-2">
-                            <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-[var(--tcet-dark)] dark:text-white text-xs rounded">
-                              {material.category}
-                            </span>
-                            <span className="text-[var(--tcet-dark)]/60 dark:text-white/60 text-xs">
-                              {material.duration}
-                            </span>
+            {/* Request Content */}
+            <TabsContent value="request">
+              <div className="max-w-4xl mx-auto">
+                <Card className="shadow-lg">
+                  <CardHeader>
+                    <CardTitle className="text-2xl text-[var(--tcet-dark)] dark:text-white flex items-center">
+                      <FileText className="w-6 h-6 mr-3 text-[var(--tcet-blue)]" />
+                      Resource Request Summary
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    {selectedItems.length === 0 ? (
+                      <div className="text-center py-12">
+                        <FileText className="w-16 h-16 mx-auto mb-4 text-[var(--tcet-dark)]/30 dark:text-white/30" />
+                        <h3 className="text-xl font-semibold text-[var(--tcet-dark)] dark:text-white mb-2">
+                          No Items Selected
+                        </h3>
+                        <p className="text-[var(--tcet-dark)]/60 dark:text-white/60">
+                          Browse the labs and add equipment to your request
+                        </p>
+                      </div>
+                    ) : (
+                      <div className="space-y-6">
+                        <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+                          <h4 className="font-semibold text-[var(--tcet-dark)] dark:text-white mb-2">
+                            Request Summary
+                          </h4>
+                          <div className="grid grid-cols-3 gap-4 text-sm">
+                            <div>
+                              <span className="text-[var(--tcet-dark)]/60 dark:text-white/60">Total Items:</span>
+                              <div className="font-semibold text-[var(--tcet-blue)]">{selectedItems.length}</div>
+                            </div>
+                            <div>
+                              <span className="text-[var(--tcet-dark)]/60 dark:text-white/60">Labs Involved:</span>
+                              <div className="font-semibold text-[var(--tcet-blue)]">
+                                {new Set(selectedItems.map(item => item.lab)).size}
+                              </div>
+                            </div>
+                            <div>
+                              <span className="text-[var(--tcet-dark)]/60 dark:text-white/60">Status:</span>
+                              <div className="font-semibold text-green-600">Ready to Submit</div>
+                            </div>
                           </div>
                         </div>
-                        <BookOpen className="w-6 h-6 text-[var(--tcet-blue)]" />
-                      </div>
-                      <CardDescription>{material.description}</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="flex gap-2">
-                        <Button className="flex-1 bg-[var(--tcet-blue)] hover:bg-blue-700">
-                          <ExternalLink className="w-4 h-4 mr-2" />
-                          Access Material
-                        </Button>
-                        <Button variant="outline" size="icon">
-                          <Download className="w-4 h-4" />
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </TabsContent>
 
-            {/* Tools & Platforms */}
-            <TabsContent value="tools">
-              <div className="mb-8">
-                <h2 className="text-3xl font-bold text-[var(--tcet-dark)] dark:text-white mb-4">Recommended Tools</h2>
-                <p className="text-[var(--tcet-dark)]/70 dark:text-white/70 mb-8">
-                  Essential tools and platforms to build and grow your startup
-                </p>
-              </div>
+                        <div className="space-y-3">
+                          <h4 className="font-semibold text-[var(--tcet-dark)] dark:text-white">
+                            Selected Equipment
+                          </h4>
+                          {selectedItems.map((item, index) => (
+                            <div key={index} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                              <div>
+                                <div className="font-medium text-[var(--tcet-dark)] dark:text-white">
+                                  {item.name}
+                                </div>
+                                <div className="text-sm text-[var(--tcet-dark)]/60 dark:text-white/60">
+                                  {item.lab} • {item.floor}
+                                </div>
+                              </div>
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => removeFromRequest(item.id)}
+                              >
+                                Remove
+                              </Button>
+                            </div>
+                          ))}
+                        </div>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {toolsAndPlatforms.map((tool, index) => (
-                  <Card key={index} className="hover:shadow-lg transition-all duration-300">
-                    <CardHeader>
-                      <div className="flex items-start justify-between">
-                        <div>
-                          <CardTitle className="text-lg text-[var(--tcet-dark)] dark:text-white mb-2 flex items-center">
-                            <span className="text-2xl mr-3">{tool.logo}</span>
-                            {tool.name}
-                          </CardTitle>
-                          <div className="flex items-center gap-2 mb-2">
-                            <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-[var(--tcet-dark)] dark:text-white text-xs rounded">
-                              {tool.category}
-                            </span>
-                            <span className="text-[var(--tcet-blue)] text-xs font-medium">
-                              {tool.type}
-                            </span>
+                        <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+                          <h4 className="font-semibold text-[var(--tcet-dark)] dark:text-white mb-2">
+                            Invoice Details
+                          </h4>
+                          <div className="text-sm text-[var(--tcet-dark)]/70 dark:text-white/70 space-y-1">
+                            <p>• Your Name/Roll No will be included</p>
+                            <p>• List of all requested items with lab locations</p>
+                            <p>• Auto-includes signatures of Faculty Mentor (Ashish Sir) and Dr. Vinitkumar Dongre</p>
+                            <p>• No payment required - for academic use only</p>
                           </div>
                         </div>
-                      </div>
-                      <CardDescription>{tool.description}</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <Button className="w-full bg-[var(--tcet-blue)] hover:bg-blue-700" asChild>
-                        <a href={tool.url} target="_blank" rel="noopener noreferrer">
-                          <ExternalLink className="w-4 h-4 mr-2" />
-                          Visit Platform
-                        </a>
-                      </Button>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </TabsContent>
 
-            {/* Funding Resources */}
-            <TabsContent value="funding">
-              <div className="mb-8">
-                <h2 className="text-3xl font-bold text-[var(--tcet-dark)] dark:text-white mb-4">Funding Resources</h2>
-                <p className="text-[var(--tcet-dark)]/70 dark:text-white/70 mb-8">
-                  Information and connections for startup funding opportunities
-                </p>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-6">
-                {fundingResources.map((resource, index) => (
-                  <Card key={index} className="hover:shadow-lg transition-all duration-300">
-                    <CardHeader>
-                      <div className="flex items-start justify-between">
-                        <div>
-                          <CardTitle className="text-lg text-[var(--tcet-dark)] dark:text-white mb-2">
-                            {resource.title}
-                          </CardTitle>
-                          <div className="flex items-center gap-2 mb-2">
-                            <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-[var(--tcet-dark)] dark:text-white text-xs rounded">
-                              {resource.category}
-                            </span>
-                            <span className="text-[var(--tcet-dark)]/60 dark:text-white/60 text-xs">
-                              {resource.type}
-                            </span>
-                          </div>
-                        </div>
-                        <TrendingUp className="w-6 h-6 text-[var(--tcet-blue)]" />
-                      </div>
-                      <CardDescription>{resource.description}</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <Button className="w-full bg-[var(--tcet-blue)] hover:bg-blue-700">
-                        <ExternalLink className="w-4 h-4 mr-2" />
-                        Explore Resource
-                      </Button>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </TabsContent>
-
-            {/* Success Stories */}
-            <TabsContent value="stories">
-              <div className="mb-8">
-                <h2 className="text-3xl font-bold text-[var(--tcet-dark)] dark:text-white mb-4">Success Stories</h2>
-                <p className="text-[var(--tcet-dark)]/70 dark:text-white/70 mb-8">
-                  Inspiring stories from TCET entrepreneurs who made it big
-                </p>
-              </div>
-
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {successStories.map((story, index) => (
-                  <Card key={index} className="hover:shadow-lg transition-all duration-300">
-                    <CardHeader>
-                      <div className="flex items-start justify-between">
-                        <div>
-                          <CardTitle className="text-lg text-[var(--tcet-dark)] dark:text-white mb-2">
-                            {story.title}
-                          </CardTitle>
-                          <div className="text-[var(--tcet-blue)] font-medium text-sm mb-2">
-                            {story.founder}
-                          </div>
-                          <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-[var(--tcet-dark)] dark:text-white text-xs rounded">
-                            {story.category}
-                          </span>
-                        </div>
-                        <Award className="w-6 h-6 text-[var(--tcet-blue)]" />
-                      </div>
-                      <CardDescription>{story.description}</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg mb-4">
-                        <div className="text-green-700 dark:text-green-300 font-medium text-sm">
-                          🎉 {story.achievement}
+                        <div className="flex gap-4">
+                          <Button 
+                            onClick={generateInvoice}
+                            className="flex-1 bg-[var(--tcet-blue)] hover:bg-blue-700"
+                          >
+                            <Download className="w-4 h-4 mr-2" />
+                            Generate Invoice
+                          </Button>
+                          <Button 
+                            variant="outline" 
+                            onClick={() => setSelectedItems([])}
+                            className="px-8"
+                          >
+                            Clear All
+                          </Button>
                         </div>
                       </div>
-                      <Button variant="outline" className="w-full">
-                        Read Full Story
-                      </Button>
-                    </CardContent>
-                  </Card>
-                ))}
+                    )}
+                  </CardContent>
+                </Card>
               </div>
             </TabsContent>
           </Tabs>
-        </div>
-      </section>
-
-      {/* Resource Request */}
-      <section className="py-20 bg-gray-50 dark:bg-gray-800">
-        <div className="container mx-auto px-6 text-center">
-          <div className="max-w-3xl mx-auto">
-            <Lightbulb className="w-16 h-16 mx-auto mb-6 text-[var(--tcet-blue)]" />
-            <h2 className="text-3xl md:text-4xl font-bold text-[var(--tcet-dark)] dark:text-white mb-6">
-              Need Something Specific?
-            </h2>
-            <p className="text-xl text-[var(--tcet-dark)]/70 dark:text-white/70 mb-8 leading-relaxed">
-              Can't find what you're looking for? Request specific resources or suggest new additions to our library.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="bg-[var(--tcet-blue)] hover:bg-blue-700 px-8 py-3 font-semibold">
-                Request Resource
-              </Button>
-              <Button variant="outline" className="px-8 py-3 font-semibold">
-                Suggest Addition
-              </Button>
-            </div>
-          </div>
         </div>
       </section>
 

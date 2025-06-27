@@ -1,6 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { User, Mail, Linkedin, Github, Award, Users as UsersIcon } from "lucide-react";
+import { User, Mail, Linkedin, Github, Award, Calendar, Users as UsersIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function Team() {
@@ -166,6 +166,24 @@ export default function Team() {
     }
   ];
 
+  const achievements = [
+    {
+      title: "Best Innovation Cell Award",
+      year: "2024",
+      description: "Recognized by Mumbai University for outstanding contribution to student entrepreneurship"
+    },
+    {
+      title: "Successful Startup Incubation",
+      year: "2024", 
+      description: "3 student startups successfully launched with external funding"
+    },
+    {
+      title: "Industry Partnership Excellence",
+      year: "2024",
+      description: "Established partnerships with 10+ leading companies for mentorship and internships"
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
       <Header />
@@ -198,28 +216,49 @@ export default function Team() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
             {facultyCoordinators.map((coordinator, index) => (
-              <div key={index} className="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
-                <div className="text-center mb-4">
-                  <div className="w-16 h-16 bg-[var(--tcet-blue)]/10 dark:bg-[var(--tcet-blue)]/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <User className="w-8 h-8 text-[var(--tcet-blue)]" />
+              <div key={index} className="bg-gray-50 dark:bg-gray-800 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+                <div className="text-center mb-6">
+                  <div className="w-24 h-24 bg-[var(--tcet-blue)]/10 dark:bg-[var(--tcet-blue)]/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <User className="w-12 h-12 text-[var(--tcet-blue)]" />
                   </div>
-                  <h3 className="text-lg font-bold text-[var(--tcet-dark)] dark:text-white mb-1">{coordinator.name}</h3>
-                  <div className="text-[var(--tcet-blue)] font-semibold text-sm mb-1">{coordinator.role}</div>
-                  <div className="text-[var(--tcet-dark)]/60 dark:text-white/60 text-xs">{coordinator.department}</div>
+                  <h3 className="text-xl font-bold text-[var(--tcet-dark)] dark:text-white mb-2">{advisor.name}</h3>
+                  <div className="text-[var(--tcet-blue)] font-semibold mb-1">{advisor.role}</div>
+                  <div className="text-[var(--tcet-dark)]/60 dark:text-white/60 text-sm">{advisor.department}</div>
                 </div>
 
-                <div className="space-y-3">
+                <div className="space-y-4">
                   <div>
-                    <h4 className="font-semibold text-[var(--tcet-dark)] dark:text-white mb-1 text-sm">Specialization</h4>
-                    <p className="text-[var(--tcet-dark)]/70 dark:text-white/70 text-xs leading-relaxed">{coordinator.specialization}</p>
+                    <h4 className="font-semibold text-[var(--tcet-dark)] dark:text-white mb-1">Education</h4>
+                    <p className="text-[var(--tcet-dark)]/70 dark:text-white/70 text-sm">{advisor.education}</p>
+                  </div>
+                  
+                  <div>
+                    <h4 className="font-semibold text-[var(--tcet-dark)] dark:text-white mb-1">Experience</h4>
+                    <p className="text-[var(--tcet-dark)]/70 dark:text-white/70 text-sm">{advisor.experience}</p>
+                  </div>
+
+                  <div>
+                    <h4 className="font-semibold text-[var(--tcet-dark)] dark:text-white mb-1">Specialization</h4>
+                    <p className="text-[var(--tcet-dark)]/70 dark:text-white/70 text-sm">{advisor.specialization}</p>
+                  </div>
+
+                  <div>
+                    <h4 className="font-semibold text-[var(--tcet-dark)] dark:text-white mb-2">Key Achievements</h4>
+                    <ul className="space-y-1">
+                      {advisor.achievements.map((achievement, i) => (
+                        <li key={i} className="text-[var(--tcet-dark)]/70 dark:text-white/70 text-sm flex items-start">
+                          <Award className="w-3 h-3 text-[var(--tcet-blue)] mr-2 mt-1 flex-shrink-0" />
+                          {achievement}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
 
-                <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-600">
+                <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-600">
                   <a 
-                    href={`mailto:${coordinator.email}`}
-                    className="flex items-center justify-center text-[var(--tcet-blue)] hover:text-blue-700 transition-colors duration-200 text-sm"
-                    title="Send Email"
+                    href={`mailto:${advisor.email}`}
+                    className="flex items-center justify-center text-[var(--tcet-blue)] hover:text-blue-700 transition-colors duration-200"
                   >
                     <Mail className="w-4 h-4 mr-2" />
                     Contact
@@ -243,21 +282,21 @@ export default function Team() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {coreTeam.map((member, index) => (
-              <div key={index} className="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+              <div key={index} className="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:transform hover:scale-105">
                 <div className="text-center mb-6">
                   <div className="w-20 h-20 bg-[var(--tcet-blue)]/10 dark:bg-[var(--tcet-blue)]/20 rounded-full flex items-center justify-center mx-auto mb-4">
                     <User className="w-10 h-10 text-[var(--tcet-blue)]" />
                   </div>
                   <h3 className="text-lg font-bold text-[var(--tcet-dark)] dark:text-white mb-1">{member.name}</h3>
                   <div className="text-[var(--tcet-blue)] font-semibold mb-1">{member.role}</div>
-                  <div className="text-[var(--tcet-dark)]/60 dark:text-white/60 text-sm">{member.year} • {member.branch}</div>
+                  <div className="text-[var(--tcet-dark)]/60 dark:text-white/60 text-sm">{member.year} • {member.department}</div>
                 </div>
 
                 <div className="space-y-4">
                   <div>
-                    <h4 className="font-semibold text-[var(--tcet-dark)] dark:text-white mb-2 text-sm">Skills</h4>
+                    <h4 className="font-semibold text-[var(--tcet-dark)] dark:text-white mb-2">Skills</h4>
                     <div className="flex flex-wrap gap-2">
                       {member.skills.map((skill, i) => (
                         <span key={i} className="px-3 py-1 bg-[var(--tcet-blue)]/10 dark:bg-[var(--tcet-blue)]/20 text-[var(--tcet-blue)] rounded-full text-xs font-medium">
@@ -268,10 +307,10 @@ export default function Team() {
                   </div>
 
                   <div>
-                    <h4 className="font-semibold text-[var(--tcet-dark)] dark:text-white mb-2 text-sm">Key Projects</h4>
+                    <h4 className="font-semibold text-[var(--tcet-dark)] dark:text-white mb-2">Notable Projects</h4>
                     <ul className="space-y-1">
                       {member.projects.map((project, i) => (
-                        <li key={i} className="text-[var(--tcet-dark)]/70 dark:text-white/70 text-xs">
+                        <li key={i} className="text-[var(--tcet-dark)]/70 dark:text-white/70 text-sm">
                           • {project}
                         </li>
                       ))}
@@ -287,6 +326,17 @@ export default function Team() {
                   >
                     <Mail className="w-5 h-5" />
                   </a>
+                  {member.github && (
+                    <a 
+                      href={`https://github.com/${member.github}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[var(--tcet-dark)]/60 dark:text-white/60 hover:text-[var(--tcet-blue)] transition-colors duration-200"
+                      title="GitHub Profile"
+                    >
+                      <Github className="w-5 h-5" />
+                    </a>
+                  )}
                   <a 
                     href="#"
                     className="text-[var(--tcet-dark)]/60 dark:text-white/60 hover:text-[var(--tcet-blue)] transition-colors duration-200"
@@ -295,6 +345,33 @@ export default function Team() {
                     <Linkedin className="w-5 h-5" />
                   </a>
                 </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Team Achievements */}
+      <section className="py-20 bg-white dark:bg-gray-900">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-[var(--tcet-dark)] dark:text-white mb-4">
+              Team Achievements
+            </h2>
+            <p className="text-lg text-[var(--tcet-dark)]/70 dark:text-white/70 max-w-2xl mx-auto">
+              Recognizing our collective success and impact
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {achievements.map((achievement, index) => (
+              <div key={index} className="bg-gray-50 dark:bg-gray-800 p-8 rounded-xl shadow-lg text-center">
+                <div className="w-16 h-16 bg-[var(--tcet-blue)]/10 dark:bg-[var(--tcet-blue)]/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Award className="w-8 h-8 text-[var(--tcet-blue)]" />
+                </div>
+                <h3 className="text-xl font-bold text-[var(--tcet-dark)] dark:text-white mb-2">{achievement.title}</h3>
+                <div className="text-[var(--tcet-blue)] font-semibold mb-4">{achievement.year}</div>
+                <p className="text-[var(--tcet-dark)]/70 dark:text-white/70 leading-relaxed">{achievement.description}</p>
               </div>
             ))}
           </div>

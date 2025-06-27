@@ -1,8 +1,25 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Target, Users, Award, TrendingUp, Lightbulb, Globe, Heart } from "lucide-react";
+import { Target, Users, Award, TrendingUp, Lightbulb, Globe, Heart, User, BookOpen } from "lucide-react";
 
 export default function About() {
+  const facultyLeadership = [
+    {
+      name: "Dr. Sukruti Kaulgud",
+      role: "Faculty Head - EDIC",
+      department: "Entrepreneurship Development & Innovation Cell",
+      specialization: "Innovation Management, Startup Ecosystem Development",
+      email: "sukruti.kaulgud@tcetmumbai.in"
+    },
+    {
+      name: "Dr. Vinitkumar Dongre", 
+      role: "Dean R&D",
+      department: "Research & Development",
+      specialization: "Research Strategy, Innovation Policy, Technology Transfer",
+      email: "vinitkumar.dongre@tcetmumbai.in"
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
       <Header />
@@ -165,6 +182,44 @@ export default function About() {
                 </p>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Faculty Leadership */}
+      <section className="py-20 bg-gray-50 dark:bg-gray-800">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-[var(--tcet-dark)] dark:text-white mb-4">
+              Faculty Leadership
+            </h2>
+            <p className="text-lg text-[var(--tcet-dark)]/70 dark:text-white/70 max-w-2xl mx-auto">
+              Leading TCET EDIC towards excellence in entrepreneurship and innovation
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {facultyLeadership.map((faculty, index) => (
+              <div key={index} className="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-lg text-center hover:shadow-xl transition-all duration-300">
+                <div className="w-24 h-24 bg-[var(--tcet-blue)]/10 dark:bg-[var(--tcet-blue)]/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <User className="w-12 h-12 text-[var(--tcet-blue)]" />
+                </div>
+                <h3 className="text-xl font-bold text-[var(--tcet-dark)] dark:text-white mb-2">{faculty.name}</h3>
+                <div className="text-[var(--tcet-blue)] font-semibold mb-2">{faculty.role}</div>
+                <div className="text-[var(--tcet-dark)]/60 dark:text-white/60 text-sm mb-4">{faculty.department}</div>
+                <div className="text-[var(--tcet-dark)]/70 dark:text-white/70 text-sm mb-6">
+                  <strong>Specialization:</strong><br />
+                  {faculty.specialization}
+                </div>
+                <a 
+                  href={`mailto:${faculty.email}`}
+                  className="inline-flex items-center text-[var(--tcet-blue)] hover:text-blue-700 transition-colors duration-200 text-sm font-medium"
+                >
+                  <BookOpen className="w-4 h-4 mr-2" />
+                  Contact
+                </a>
+              </div>
+            ))}
           </div>
         </div>
       </section>
