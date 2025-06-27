@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
+import { useTheme } from "@/contexts/ThemeContext";
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, target: string) => {
     e.preventDefault();
@@ -17,15 +19,15 @@ export default function Header() {
   };
 
   return (
-    <header className="absolute top-0 left-0 right-0 z-50 bg-white/10 backdrop-blur-sm">
+    <header className="absolute top-0 left-0 right-0 z-50 bg-white/10 dark:bg-black/10 backdrop-blur-sm">
       <nav className="container mx-auto px-6 py-4">
         <div className="flex justify-between items-center">
           <div className="text-[var(--tcet-blue)] font-semibold text-lg">
             TCET EDIC
           </div>
           
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-8 text-[var(--tcet-dark)]">
+          {/* Desktop Navigation - Centered */}
+          <div className="hidden md:flex space-x-8 text-[var(--tcet-dark)] dark:text-white">
             <a 
               href="#about" 
               onClick={(e) => handleSmoothScroll(e, '#about')}
@@ -63,51 +65,61 @@ export default function Header() {
             </a>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button 
-            className="md:hidden text-[var(--tcet-dark)] hover:text-[var(--tcet-blue)] transition-colors duration-200"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          {/* Theme Toggle & Mobile Menu */}
+          <div className="flex items-center gap-4">
+            <button
+              onClick={toggleTheme}
+              className="text-[var(--tcet-dark)] dark:text-white hover:text-[var(--tcet-blue)] transition-colors duration-200"
+              aria-label="Toggle theme"
+            >
+              {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+            </button>
+            
+            <button 
+              className="md:hidden text-[var(--tcet-dark)] dark:text-white hover:text-[var(--tcet-blue)] transition-colors duration-200"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className="md:hidden mt-4 bg-white/90 backdrop-blur-sm rounded-lg shadow-lg p-4">
+          <div className="md:hidden mt-4 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm rounded-lg shadow-lg p-4">
             <div className="flex flex-col space-y-3">
               <a 
                 href="#about" 
                 onClick={(e) => handleSmoothScroll(e, '#about')}
-                className="text-[var(--tcet-dark)] hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium py-2"
+                className="text-[var(--tcet-dark)] dark:text-white hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium py-2"
               >
                 About
               </a>
               <a 
                 href="#team" 
                 onClick={(e) => handleSmoothScroll(e, '#team')}
-                className="text-[var(--tcet-dark)] hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium py-2"
+                className="text-[var(--tcet-dark)] dark:text-white hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium py-2"
               >
                 Team
               </a>
               <a 
                 href="#resources" 
                 onClick={(e) => handleSmoothScroll(e, '#resources')}
-                className="text-[var(--tcet-dark)] hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium py-2"
+                className="text-[var(--tcet-dark)] dark:text-white hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium py-2"
               >
                 Resources
               </a>
               <a 
                 href="#events" 
                 onClick={(e) => handleSmoothScroll(e, '#events')}
-                className="text-[var(--tcet-dark)] hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium py-2"
+                className="text-[var(--tcet-dark)] dark:text-white hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium py-2"
               >
                 Events
               </a>
               <a 
                 href="#contact" 
                 onClick={(e) => handleSmoothScroll(e, '#contact')}
-                className="text-[var(--tcet-dark)] hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium py-2"
+                className="text-[var(--tcet-dark)] dark:text-white hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium py-2"
               >
                 Contact
               </a>
