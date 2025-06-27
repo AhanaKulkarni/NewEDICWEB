@@ -29,22 +29,38 @@ This is a React-based web application for the Entrepreneurship Development and I
 
 ## Key Components
 
+### Page Structure
+- **Home Page**: Hero section with registration form, quick info, about, team, and events sections
+- **About Page**: Comprehensive mission, vision, values, and history
+- **Team Page**: Faculty advisors and core student team members with detailed profiles
+- **Resources Page**: Business templates, learning materials, tools, funding resources, and success stories
+- **Events Page**: Upcoming and past events with detailed information and registration
+- **Contact Page**: Multiple contact methods, team contacts, and FAQ section
+
 ### Core UI Components
-- **Header**: Navigation with smooth scrolling and mobile menu
-- **Hero**: Landing section with institution branding and call-to-action
-- **QuickInfo**: Feature highlights with icons and descriptions
-- **Footer**: Institution contact and copyright information
+- **Header**: Multi-page navigation with dark/light mode toggle and active page highlighting
+- **Hero**: Landing section with team photo background and registration form modal
+- **Footer**: Enhanced contact information with social links and quick navigation
+- **Registration Form**: Comprehensive EDIC membership application with validation
+
+### Advanced Features
+- **Theme System**: Complete dark/light mode with localStorage persistence
+- **Routing**: Multi-page application with wouter routing and active navigation states
+- **Form Handling**: Professional registration and contact forms with toast notifications
+- **Responsive Design**: Mobile-first design with hover animations and transitions
 
 ### Shared Infrastructure
 - **Schema**: Drizzle-based database schema with Zod validation
 - **Types**: Shared TypeScript types between client and server
 - **Storage Interface**: Abstracted storage layer supporting multiple backends
+- **Theme Context**: React context for theme management across the application
 
 ### Design System
 - **Component Library**: Complete Shadcn/ui component set (40+ components)
 - **Theming**: CSS custom properties with light/dark mode support
 - **Typography**: Inter font family for consistent branding
 - **Icons**: Lucide React for consistent iconography
+- **Cards & Layouts**: Professional card-based layouts with hover effects
 
 ## Data Flow
 

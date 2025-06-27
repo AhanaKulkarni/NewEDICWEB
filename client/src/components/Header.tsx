@@ -1,20 +1,14 @@
 import { useState } from "react";
 import { Menu, X, Sun, Moon } from "lucide-react";
+import { Link, useLocation } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  const [location] = useLocation();
 
-  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, target: string) => {
-    e.preventDefault();
-    const element = document.querySelector(target);
-    if (element) {
-      element.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
+  const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
   };
 
@@ -22,47 +16,52 @@ export default function Header() {
     <header className="absolute top-0 left-0 right-0 z-50 bg-white/10 dark:bg-black/10 backdrop-blur-sm">
       <nav className="container mx-auto px-6 py-4">
         <div className="flex justify-between items-center">
-          <div className="text-[var(--tcet-blue)] font-semibold text-lg">
+          <Link href="/" className="text-[var(--tcet-blue)] font-semibold text-lg hover:text-blue-700 transition-colors duration-200">
             TCET EDIC
-          </div>
+          </Link>
           
           {/* Desktop Navigation - Centered */}
           <div className="hidden md:flex space-x-8 text-[var(--tcet-dark)] dark:text-white">
-            <a 
-              href="#about" 
-              onClick={(e) => handleSmoothScroll(e, '#about')}
-              className="hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium"
+            <Link 
+              href="/about"
+              className={`hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium ${
+                location === '/about' ? 'text-[var(--tcet-blue)]' : ''
+              }`}
             >
               About
-            </a>
-            <a 
-              href="#team" 
-              onClick={(e) => handleSmoothScroll(e, '#team')}
-              className="hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium"
+            </Link>
+            <Link 
+              href="/team"
+              className={`hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium ${
+                location === '/team' ? 'text-[var(--tcet-blue)]' : ''
+              }`}
             >
               Team
-            </a>
-            <a 
-              href="#resources" 
-              onClick={(e) => handleSmoothScroll(e, '#resources')}
-              className="hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium"
+            </Link>
+            <Link 
+              href="/resources"
+              className={`hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium ${
+                location === '/resources' ? 'text-[var(--tcet-blue)]' : ''
+              }`}
             >
               Resources
-            </a>
-            <a 
-              href="#events" 
-              onClick={(e) => handleSmoothScroll(e, '#events')}
-              className="hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium"
+            </Link>
+            <Link 
+              href="/events"
+              className={`hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium ${
+                location === '/events' ? 'text-[var(--tcet-blue)]' : ''
+              }`}
             >
               Events
-            </a>
-            <a 
-              href="#contact" 
-              onClick={(e) => handleSmoothScroll(e, '#contact')}
-              className="hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium"
+            </Link>
+            <Link 
+              href="/contact"
+              className={`hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium ${
+                location === '/contact' ? 'text-[var(--tcet-blue)]' : ''
+              }`}
             >
               Contact
-            </a>
+            </Link>
           </div>
 
           {/* Theme Toggle & Mobile Menu */}
@@ -88,41 +87,51 @@ export default function Header() {
         {isMobileMenuOpen && (
           <div className="md:hidden mt-4 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm rounded-lg shadow-lg p-4">
             <div className="flex flex-col space-y-3">
-              <a 
-                href="#about" 
-                onClick={(e) => handleSmoothScroll(e, '#about')}
-                className="text-[var(--tcet-dark)] dark:text-white hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium py-2"
+              <Link 
+                href="/about" 
+                onClick={closeMobileMenu}
+                className={`text-[var(--tcet-dark)] dark:text-white hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium py-2 ${
+                  location === '/about' ? 'text-[var(--tcet-blue)]' : ''
+                }`}
               >
                 About
-              </a>
-              <a 
-                href="#team" 
-                onClick={(e) => handleSmoothScroll(e, '#team')}
-                className="text-[var(--tcet-dark)] dark:text-white hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium py-2"
+              </Link>
+              <Link 
+                href="/team" 
+                onClick={closeMobileMenu}
+                className={`text-[var(--tcet-dark)] dark:text-white hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium py-2 ${
+                  location === '/team' ? 'text-[var(--tcet-blue)]' : ''
+                }`}
               >
                 Team
-              </a>
-              <a 
-                href="#resources" 
-                onClick={(e) => handleSmoothScroll(e, '#resources')}
-                className="text-[var(--tcet-dark)] dark:text-white hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium py-2"
+              </Link>
+              <Link 
+                href="/resources" 
+                onClick={closeMobileMenu}
+                className={`text-[var(--tcet-dark)] dark:text-white hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium py-2 ${
+                  location === '/resources' ? 'text-[var(--tcet-blue)]' : ''
+                }`}
               >
                 Resources
-              </a>
-              <a 
-                href="#events" 
-                onClick={(e) => handleSmoothScroll(e, '#events')}
-                className="text-[var(--tcet-dark)] dark:text-white hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium py-2"
+              </Link>
+              <Link 
+                href="/events" 
+                onClick={closeMobileMenu}
+                className={`text-[var(--tcet-dark)] dark:text-white hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium py-2 ${
+                  location === '/events' ? 'text-[var(--tcet-blue)]' : ''
+                }`}
               >
                 Events
-              </a>
-              <a 
-                href="#contact" 
-                onClick={(e) => handleSmoothScroll(e, '#contact')}
-                className="text-[var(--tcet-dark)] dark:text-white hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium py-2"
+              </Link>
+              <Link 
+                href="/contact" 
+                onClick={closeMobileMenu}
+                className={`text-[var(--tcet-dark)] dark:text-white hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium py-2 ${
+                  location === '/contact' ? 'text-[var(--tcet-blue)]' : ''
+                }`}
               >
                 Contact
-              </a>
+              </Link>
             </div>
           </div>
         )}
