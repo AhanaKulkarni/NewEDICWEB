@@ -1,14 +1,15 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Users, Lightbulb, UserCheck, Wrench, ExternalLink, GraduationCap, Linkedin } from "lucide-react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
+import InvoiceGenerator from "@/components/InvoiceGenerator";
 
 export default function StudentsCorner() {
   const { toast } = useToast();
-  
+
   const forms = [
     {
       id: "registration",
@@ -118,7 +119,7 @@ export default function StudentsCorner() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
       <Header />
-      
+
       {/* Hero Section */}
       <section className="pt-24 pb-16 bg-gradient-to-br from-blue-50 to-white dark:from-gray-800 dark:to-gray-900">
         <div className="container mx-auto px-6">
@@ -173,7 +174,7 @@ export default function StudentsCorner() {
                         {form.description}
                       </CardDescription>
                     </CardHeader>
-                    
+
                     <CardContent>
                       <div className="space-y-4">
                         <div>
@@ -254,7 +255,7 @@ export default function StudentsCorner() {
                         Batch of {alumni.batch}
                       </div>
                     </CardHeader>
-                    
+
                     <CardContent>
                       <div className="space-y-3 text-center">
                         <div>
@@ -265,7 +266,7 @@ export default function StudentsCorner() {
                             {alumni.company}
                           </div>
                         </div>
-                        
+
                         <div className="bg-gray-50 dark:bg-gray-700 p-3 rounded-lg">
                           <div className="text-xs text-[var(--tcet-dark)]/70 dark:text-white/70 mb-1">
                             Expertise:

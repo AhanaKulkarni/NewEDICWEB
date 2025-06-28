@@ -23,6 +23,14 @@ export default function Header() {
           {/* Desktop Navigation - Centered */}
           <div className="hidden md:flex space-x-6 text-[var(--tcet-dark)] dark:text-white">
             <Link 
+              href="/"
+              className={`hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium ${
+                location === '/' ? 'text-[var(--tcet-blue)]' : ''
+              }`}
+            >
+              Home
+            </Link>
+            <Link 
               href="/about"
               className={`hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium ${
                 location === '/about' ? 'text-[var(--tcet-blue)]' : ''
@@ -95,6 +103,15 @@ export default function Header() {
         {isMobileMenuOpen && (
           <div className="md:hidden mt-4 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm rounded-lg shadow-lg p-4">
             <div className="flex flex-col space-y-3">
+              <Link 
+                href="/" 
+                onClick={closeMobileMenu}
+                className={`text-[var(--tcet-dark)] dark:text-white hover:text-[var(--tcet-blue)] transition-colors duration-200 font-medium py-2 ${
+                  location === '/' ? 'text-[var(--tcet-blue)]' : ''
+                }`}
+              >
+                Home
+              </Link>
               <Link 
                 href="/about" 
                 onClick={closeMobileMenu}
