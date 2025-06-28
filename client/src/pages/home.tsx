@@ -14,8 +14,8 @@ export default function Home() {
       <Header />
 
       {/* Hero Section */}
-      <section className="pt-24 pb-20 bg-cover bg-center" style={{ backgroundImage: `url(/WhatsApp Image 2025-06-27 at 23.43.51_001b3ada_1751048055531.jpg)` }}>
-        <div className="container mx-auto px-6">
+      <section className="pt-24 pb-20 bg-gradient-to-br from-blue-50 to-white dark:from-gray-800 dark:to-gray-900 transition-colors duration-300">
+        <div className="container mx-auto px-6 relative z-10">
           <div className="flex flex-col lg:flex-row items-center gap-12">
             <div className="flex-1 text-center lg:text-left">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[var(--tcet-dark)] dark:text-white mb-6 leading-tight">
