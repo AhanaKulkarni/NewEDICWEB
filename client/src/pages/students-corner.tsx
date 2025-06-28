@@ -4,8 +4,11 @@ import { Users, Lightbulb, UserCheck, Wrench, ExternalLink, GraduationCap, Linke
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useToast } from "@/hooks/use-toast";
 
 export default function StudentsCorner() {
+  const { toast } = useToast();
+  
   const forms = [
     {
       id: "registration",
@@ -34,10 +37,11 @@ export default function StudentsCorner() {
     {
       id: "lab-resources",
       title: "Request Lab Resources",
-      description: "Access TCET's 70+ lab resources for your projects and research",
+      description: "Submit your lab resource request after downloading invoice from Resources page",
       icon: Wrench,
       color: "bg-purple-500",
-      fields: ["Project Details", "Required Equipment", "Duration", "Faculty Approval"]
+      requiresInvoice: true,
+      fields: ["Invoice Number (from Resources page)", "Faculty Approval Status", "Project Purpose", "Submission Details"]
     }
   ];
 
@@ -93,8 +97,22 @@ export default function StudentsCorner() {
   ];
 
   const handleFormAccess = (formId: string) => {
-    // This would navigate to the actual form or open a modal
-    console.log(`Accessing form: ${formId}`);
+    if (formId === "lab-resources") {
+      // For lab resources, redirect to Resources page first
+      toast({
+        title: "Invoice Required",
+        description: "Please download your invoice from the Resources page first, then return to submit this form.",
+      });
+      // In a real app, you would navigate to /resources
+      window.location.href = "/resources";
+    } else {
+      // This would navigate to the actual form or open a modal
+      console.log(`Accessing form: ${formId}`);
+      toast({
+        title: "Form Access",
+        description: "Form functionality will be available soon.",
+      });
+    }
   };
 
   return (

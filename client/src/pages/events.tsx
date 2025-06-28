@@ -1,119 +1,194 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Calendar, Clock, MapPin, Users, ExternalLink, Award, Star, Filter, Search } from "lucide-react";
+import { Calendar, Clock, MapPin, Users, Star, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function Events() {
-  const upcomingEvents = [
+  const featuredEvents = [
     {
-      id: 1,
-      title: "Startup Pitch Competition 2025",
+      title: "TCS & Capgemini Industry Connect",
       date: "March 15, 2025",
-      time: "10:00 AM - 4:00 PM",
+      time: "10:00 AM - 5:00 PM",
       location: "TCET Auditorium",
-      description: "Present your startup ideas to industry experts and compete for exciting prizes and mentorship opportunities. Top 3 teams will receive funding support and 6-month incubation.",
-      attendees: "50+ expected",
-      status: "registration-open",
-      category: "Competition",
-      registrationDeadline: "March 10, 2025",
-      prizes: ["₹50,000 Cash Prize", "6-month Incubation", "Mentorship Program"],
-      speakers: ["Mr. Rajesh Kumar (Angel Investor)", "Ms. Priya Shah (Startup Founder)", "Dr. Amit Verma (TCET)"],
-      featured: true
+      description: "Direct interaction with industry leaders from TCS and Capgemini. Learn about emerging technologies, career opportunities, and get insights into real-world projects. Network with professionals and explore internship possibilities.",
+      image: "/api/placeholder/600/300",
+      featured: true,
+      status: "upcoming",
+      attendees: "200+",
+      type: "Industry Connect"
     },
     {
-      id: 2,
-      title: "Entrepreneurship Workshop Series",
-      date: "March 22, 2025",
-      time: "2:00 PM - 5:00 PM",
-      location: "A-Block Seminar Hall",
-      description: "Learn the fundamentals of starting a business, from idea validation to market research and business planning. Interactive sessions with real-world case studies.",
-      attendees: "30+ expected",
-      status: "registration-open",
-      category: "Workshop",
-      registrationDeadline: "March 20, 2025",
-      topics: ["Idea Validation", "Market Research", "Business Model Canvas", "Financial Planning"],
-      prerequisites: "None - Open to all students"
-    },
+      title: "CEO Talks",
+      date: "February 28, 2025", 
+      time: "2:00 PM - 4:00 PM",
+      location: "Innovation Lab",
+      description: "Interactive session with successful startup CEOs sharing their entrepreneurial journey, challenges faced, and strategies for building successful ventures. Get inspired by real success stories and actionable advice.",
+      image: "/api/placeholder/600/300",
+      featured: true,
+      status: "upcoming",
+      attendees: "150+",
+      type: "Leadership"
+    }
+  ];
+
+  const allEvents = [
     {
-      id: 3,
-      title: "Industry Mentorship Meet",
-      date: "April 5, 2025",
-      time: "11:00 AM - 1:00 PM",
-      location: "TCET Conference Room",
-      description: "Network with successful entrepreneurs and industry leaders. Get personalized guidance for your startup journey through one-on-one mentoring sessions.",
-      attendees: "25+ expected",
-      status: "coming-soon",
-      category: "Networking",
-      registrationDeadline: "April 1, 2025",
-      mentors: ["Tech Industry Leaders", "Successful Entrepreneurs", "Venture Capitalists"],
-      format: "Speed Mentoring + Panel Discussion"
-    },
-    {
-      id: 4,
-      title: "Product Development Bootcamp",
-      date: "April 18, 2025",
+      title: "Startup Day",
+      date: "January 20, 2025",
       time: "9:00 AM - 6:00 PM",
-      location: "Innovation Lab, B-Block",
-      description: "Intensive hands-on bootcamp covering product development lifecycle, prototyping, and user experience design. Build a working prototype by the end of the day.",
-      attendees: "20+ expected",
-      status: "coming-soon",
-      category: "Bootcamp",
-      registrationDeadline: "April 15, 2025",
-      tools: ["Figma", "Arduino", "3D Printing", "Mobile App Development"],
-      duration: "1 Full Day"
-    }
-  ];
-
-  const pastEvents = [
+      location: "TCET Campus",
+      description: "Annual startup showcase featuring student entrepreneurs, pitch competitions, and networking opportunities.",
+      status: "upcoming",
+      attendees: "300+",
+      type: "Competition"
+    },
     {
-      title: "Innovation Showcase 2024",
+      title: "IITB Visit",
+      date: "February 5, 2025",
+      time: "10:00 AM - 4:00 PM", 
+      location: "IIT Bombay",
+      description: "Educational visit to IIT Bombay incubation center and research facilities for inspiration and learning.",
+      status: "upcoming",
+      attendees: "50+",
+      type: "Educational"
+    },
+    {
+      title: "Coffee with Alumni",
+      date: "February 12, 2025",
+      time: "4:00 PM - 6:00 PM",
+      location: "TCET Cafeteria",
+      description: "Informal networking session with successful TCET alumni working in startups and established companies.",
+      status: "upcoming", 
+      attendees: "80+",
+      type: "Networking"
+    },
+    {
+      title: "Data Vision",
+      date: "March 8, 2025",
+      time: "1:00 PM - 5:00 PM",
+      location: "Computer Lab",
+      description: "Data analytics and visualization workshop focusing on business intelligence and data-driven decision making.",
+      status: "upcoming",
+      attendees: "100+",
+      type: "Workshop"
+    },
+    {
+      title: "Startup Expo",
+      date: "March 22, 2025",
+      time: "10:00 AM - 6:00 PM",
+      location: "TCET Main Ground",
+      description: "Large-scale exhibition featuring startup displays, investor meetings, and product demonstrations.",
+      status: "upcoming",
+      attendees: "500+",
+      type: "Exhibition"
+    },
+    {
+      title: "Ideathon 2.0",
+      date: "April 5, 2025",
+      time: "9:00 AM - 8:00 PM",
+      location: "Innovation Center",
+      description: "24-hour idea generation and prototyping competition with themes around sustainable technology and social impact.",
+      status: "upcoming",
+      attendees: "200+",
+      type: "Competition"
+    },
+    {
+      title: "PTM - Project Display",
+      date: "April 15, 2025",
+      time: "11:00 AM - 4:00 PM",
+      location: "Project Display Hall",
+      description: "Student project showcase featuring innovative solutions, research work, and entrepreneurial ventures.",
+      status: "upcoming",
+      attendees: "400+",
+      type: "Showcase"
+    },
+    {
+      title: "MSME Workshop",
+      date: "April 25, 2025",
+      time: "2:00 PM - 6:00 PM",
+      location: "Seminar Hall",
+      description: "Micro, Small & Medium Enterprises development workshop covering registration, funding, and growth strategies.",
+      status: "upcoming",
+      attendees: "120+",
+      type: "Workshop"
+    },
+    {
+      title: "Mind's Eye Project Competition",
+      date: "May 8, 2025",
+      time: "10:00 AM - 5:00 PM",
+      location: "Competition Arena",
+      description: "Creative problem-solving competition challenging students to develop innovative solutions for real-world problems.",
+      status: "upcoming",
+      attendees: "180+",
+      type: "Competition"
+    },
+    {
+      title: "Startup Charcha",
+      date: "May 15, 2025",
+      time: "3:00 PM - 5:00 PM",
+      location: "Discussion Room",
+      description: "Interactive discussion forum for aspiring entrepreneurs to share ideas, challenges, and seek mentorship.",
+      status: "upcoming",
+      attendees: "60+",
+      type: "Discussion"
+    },
+    {
+      title: "Ideathon 1.0",
       date: "December 10, 2024",
-      description: "Students presented innovative solutions to real-world problems with industry judges providing feedback",
-      participants: "40 teams participated",
-      highlights: ["Best Innovation Award", "Audience Choice Award", "Industry Partnership Offers"],
-      images: 15,
-      feedback: "4.8/5 average rating"
+      time: "9:00 AM - 6:00 PM",
+      location: "Innovation Lab",
+      description: "First edition of the ideathon focusing on healthcare and education technology solutions.",
+      status: "past",
+      attendees: "150+",
+      type: "Competition"
     },
     {
-      title: "Business Plan Competition",
-      date: "November 15, 2024",
-      description: "Comprehensive business plan presentations and evaluations with detailed feedback from expert judges",
-      participants: "25 teams participated",
-      highlights: ["₹25,000 Prize Pool", "Incubation Offers", "Investor Meetings"],
-      images: 20,
-      feedback: "4.9/5 average rating"
+      title: "Entrepreneur Meet & Greet",
+      date: "November 20, 2024",
+      time: "4:00 PM - 7:00 PM",
+      location: "Networking Lounge",
+      description: "Casual networking event connecting students with local entrepreneurs and business mentors.",
+      status: "past",
+      attendees: "90+",
+      type: "Networking"
     },
     {
-      title: "Startup Success Stories",
-      date: "October 20, 2024",
-      description: "Alumni entrepreneurs shared their startup journey experiences, challenges, and success strategies",
-      participants: "100+ attendees",
-      highlights: ["5 Alumni Speakers", "Q&A Sessions", "Networking Lunch"],
-      images: 30,
-      feedback: "4.7/5 average rating"
+      title: "Tech Innovation Summit",
+      date: "October 15, 2024",
+      time: "10:00 AM - 6:00 PM",
+      location: "Main Auditorium",
+      description: "Technology-focused summit featuring emerging trends, AI applications, and digital transformation.",
+      status: "past",
+      attendees: "300+",
+      type: "Summit"
     },
     {
-      title: "Tech Innovation Workshop",
-      date: "September 25, 2024",
-      description: "Deep dive into emerging technologies and their application in solving business problems",
-      participants: "35 participants",
-      highlights: ["AI/ML Workshop", "Blockchain Demo", "IoT Projects"],
-      images: 12,
-      feedback: "4.6/5 average rating"
+      title: "Business Plan Workshop",
+      date: "September 28, 2024",
+      time: "1:00 PM - 5:00 PM",
+      location: "Workshop Hall",
+      description: "Comprehensive workshop on creating effective business plans, financial projections, and investor presentations.",
+      status: "past",
+      attendees: "100+",
+      type: "Workshop"
+    },
+    {
+      title: "Innovation Bootcamp",
+      date: "August 12, 2024",
+      time: "9:00 AM - 7:00 PM",
+      location: "Bootcamp Center",
+      description: "Intensive training program covering design thinking, lean startup methodology, and product development.",
+      status: "past",
+      attendees: "80+",
+      type: "Bootcamp"
     }
   ];
 
-  const eventCategories = [
-    { name: "All", count: upcomingEvents.length },
-    { name: "Competition", count: upcomingEvents.filter(e => e.category === "Competition").length },
-    { name: "Workshop", count: upcomingEvents.filter(e => e.category === "Workshop").length },
-    { name: "Networking", count: upcomingEvents.filter(e => e.category === "Networking").length },
-    { name: "Bootcamp", count: upcomingEvents.filter(e => e.category === "Bootcamp").length }
-  ];
+  const upcomingEvents = allEvents.filter(event => event.status === "upcoming");
+  const pastEvents = allEvents.filter(event => event.status === "past");
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
@@ -124,283 +199,195 @@ export default function Events() {
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold text-[var(--tcet-dark)] dark:text-white mb-6">
-              Events & Activities
+              Events & Workshops
             </h1>
-            <p className="text-xl text-[var(--tcet-dark)]/70 dark:text-white/70 leading-relaxed mb-8">
-              Join our exciting events designed to boost your entrepreneurial journey and connect with like-minded innovators
+            <p className="text-xl text-[var(--tcet-dark)]/70 dark:text-white/70 leading-relaxed">
+              Join us for exciting events, workshops, and networking opportunities designed to fuel your entrepreneurial journey
             </p>
-            
-            {/* Search and Filter */}
-            <div className="flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto">
-              <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                <Input 
-                  placeholder="Search events..." 
-                  className="pl-10 py-3 bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600"
-                />
-              </div>
-              <Button variant="outline" className="px-6 py-3">
-                <Filter className="w-4 h-4 mr-2" />
-                Filter
-              </Button>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* Main Content */}
+      {/* Featured Events */}
       <section className="py-20 bg-white dark:bg-gray-900">
         <div className="container mx-auto px-6">
-          <Tabs defaultValue="upcoming" className="max-w-7xl mx-auto">
-            <TabsList className="grid w-full grid-cols-3 mb-12">
-              <TabsTrigger value="upcoming">Upcoming Events</TabsTrigger>
-              <TabsTrigger value="past">Past Events</TabsTrigger>
-              <TabsTrigger value="calendar">Event Calendar</TabsTrigger>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-[var(--tcet-dark)] dark:text-white mb-4">
+              Featured Events
+            </h2>
+            <p className="text-lg text-[var(--tcet-dark)]/70 dark:text-white/70 max-w-2xl mx-auto">
+              Don't miss these flagship events that will shape your entrepreneurial future
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto mb-12">
+            {featuredEvents.map((event, index) => (
+              <Card key={index} className="overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border-l-4 border-l-[var(--tcet-blue)]">
+                <div className="h-48 bg-gradient-to-br from-[var(--tcet-blue)]/10 to-blue-100 dark:from-[var(--tcet-blue)]/20 dark:to-blue-900/30 flex items-center justify-center">
+                  <div className="text-center">
+                    <Star className="w-16 h-16 text-[var(--tcet-blue)] mx-auto mb-2" />
+                    <Badge variant="secondary" className="bg-[var(--tcet-blue)] text-white">
+                      {event.type}
+                    </Badge>
+                  </div>
+                </div>
+                <CardHeader>
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <CardTitle className="text-xl text-[var(--tcet-dark)] dark:text-white mb-2">
+                        {event.title}
+                      </CardTitle>
+                      <div className="flex items-center text-[var(--tcet-blue)] mb-2">
+                        <Calendar className="w-4 h-4 mr-2" />
+                        <span className="text-sm font-medium">{event.date}</span>
+                      </div>
+                    </div>
+                    <Badge className="bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">
+                      Featured
+                    </Badge>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-[var(--tcet-dark)]/70 dark:text-white/70 mb-4 leading-relaxed">
+                    {event.description}
+                  </p>
+                  
+                  <div className="space-y-2 mb-4">
+                    <div className="flex items-center text-sm text-[var(--tcet-dark)]/60 dark:text-white/60">
+                      <Clock className="w-4 h-4 mr-2" />
+                      {event.time}
+                    </div>
+                    <div className="flex items-center text-sm text-[var(--tcet-dark)]/60 dark:text-white/60">
+                      <MapPin className="w-4 h-4 mr-2" />
+                      {event.location}
+                    </div>
+                    <div className="flex items-center text-sm text-[var(--tcet-dark)]/60 dark:text-white/60">
+                      <Users className="w-4 h-4 mr-2" />
+                      Expected: {event.attendees}
+                    </div>
+                  </div>
+
+                  <Button className="w-full bg-[var(--tcet-blue)] hover:bg-blue-700">
+                    Register Now
+                    <ExternalLink className="w-4 h-4 ml-2" />
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* All Events */}
+      <section className="py-20 bg-gray-50 dark:bg-gray-800">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-[var(--tcet-dark)] dark:text-white mb-4">
+              All Events
+            </h2>
+            <p className="text-lg text-[var(--tcet-dark)]/70 dark:text-white/70 max-w-2xl mx-auto">
+              Complete list of EDIC events, workshops, and activities
+            </p>
+          </div>
+
+          <Tabs defaultValue="upcoming" className="max-w-6xl mx-auto">
+            <TabsList className="grid w-full grid-cols-2 mb-8">
+              <TabsTrigger value="upcoming">Upcoming Events ({upcomingEvents.length})</TabsTrigger>
+              <TabsTrigger value="past">Past Events ({pastEvents.length})</TabsTrigger>
             </TabsList>
 
-            {/* Upcoming Events */}
             <TabsContent value="upcoming">
-              {/* Category Filter */}
-              <div className="flex flex-wrap gap-4 mb-8">
-                {eventCategories.map((category, index) => (
-                  <Badge 
-                    key={index} 
-                    variant="outline" 
-                    className="cursor-pointer hover:bg-[var(--tcet-blue)] hover:text-white transition-colors duration-200"
-                  >
-                    {category.name} ({category.count})
-                  </Badge>
-                ))}
-              </div>
-
-              <div className="grid lg:grid-cols-2 gap-8">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {upcomingEvents.map((event, index) => (
-                  <Card key={index} className={`hover:shadow-xl transition-all duration-300 ${event.featured ? 'ring-2 ring-[var(--tcet-blue)] ring-opacity-50' : ''}`}>
+                  <Card key={index} className="hover:shadow-lg transition-shadow duration-300">
                     <CardHeader>
-                      <div className="flex items-start justify-between">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-2">
-                            <Badge className={`${
-                              event.status === 'registration-open' 
-                                ? 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300' 
-                                : 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-300'
-                            }`}>
-                              {event.status === 'registration-open' ? 'Registration Open' : 'Coming Soon'}
-                            </Badge>
-                            <Badge variant="outline">{event.category}</Badge>
-                            {event.featured && (
-                              <Badge className="bg-[var(--tcet-blue)] text-white">
-                                <Star className="w-3 h-3 mr-1" />
-                                Featured
-                              </Badge>
-                            )}
-                          </div>
-                          <CardTitle className="text-xl text-[var(--tcet-dark)] dark:text-white mb-2">
-                            {event.title}
-                          </CardTitle>
-                        </div>
+                      <div className="flex items-start justify-between mb-2">
+                        <Badge variant="outline" className="text-[var(--tcet-blue)] border-[var(--tcet-blue)]">
+                          {event.type}
+                        </Badge>
+                        <Badge className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                          Upcoming
+                        </Badge>
                       </div>
+                      <CardTitle className="text-lg text-[var(--tcet-dark)] dark:text-white">
+                        {event.title}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-[var(--tcet-dark)]/70 dark:text-white/70 text-sm mb-4">
+                        {event.description}
+                      </p>
                       
                       <div className="space-y-2 mb-4">
-                        <div className="flex items-center text-[var(--tcet-dark)]/70 dark:text-white/70">
-                          <Calendar className="w-4 h-4 mr-3 text-[var(--tcet-blue)]" />
-                          <span className="text-sm">{event.date}</span>
+                        <div className="flex items-center text-xs text-[var(--tcet-dark)]/60 dark:text-white/60">
+                          <Calendar className="w-3 h-3 mr-2" />
+                          {event.date}
                         </div>
-                        <div className="flex items-center text-[var(--tcet-dark)]/70 dark:text-white/70">
-                          <Clock className="w-4 h-4 mr-3 text-[var(--tcet-blue)]" />
-                          <span className="text-sm">{event.time}</span>
+                        <div className="flex items-center text-xs text-[var(--tcet-dark)]/60 dark:text-white/60">
+                          <Clock className="w-3 h-3 mr-2" />
+                          {event.time}
                         </div>
-                        <div className="flex items-center text-[var(--tcet-dark)]/70 dark:text-white/70">
-                          <MapPin className="w-4 h-4 mr-3 text-[var(--tcet-blue)]" />
-                          <span className="text-sm">{event.location}</span>
+                        <div className="flex items-center text-xs text-[var(--tcet-dark)]/60 dark:text-white/60">
+                          <MapPin className="w-3 h-3 mr-2" />
+                          {event.location}
                         </div>
-                        <div className="flex items-center text-[var(--tcet-dark)]/70 dark:text-white/70">
-                          <Users className="w-4 h-4 mr-3 text-[var(--tcet-blue)]" />
-                          <span className="text-sm">{event.attendees}</span>
+                        <div className="flex items-center text-xs text-[var(--tcet-dark)]/60 dark:text-white/60">
+                          <Users className="w-3 h-3 mr-2" />
+                          Expected: {event.attendees}
                         </div>
-                      </div>
-                      
-                      <CardDescription className="leading-relaxed">
-                        {event.description}
-                      </CardDescription>
-                    </CardHeader>
-                    
-                    <CardContent>
-                      {/* Event Details */}
-                      <div className="space-y-4 mb-6">
-                        {event.prizes && (
-                          <div>
-                            <h4 className="font-semibold text-[var(--tcet-dark)] dark:text-white mb-2">Prizes & Benefits:</h4>
-                            <div className="flex flex-wrap gap-2">
-                              {event.prizes.map((prize, i) => (
-                                <Badge key={i} variant="outline" className="text-xs">
-                                  🏆 {prize}
-                                </Badge>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-                        
-                        {event.topics && (
-                          <div>
-                            <h4 className="font-semibold text-[var(--tcet-dark)] dark:text-white mb-2">Topics Covered:</h4>
-                            <div className="flex flex-wrap gap-2">
-                              {event.topics.map((topic, i) => (
-                                <Badge key={i} variant="outline" className="text-xs">
-                                  {topic}
-                                </Badge>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-
-                        {event.speakers && (
-                          <div>
-                            <h4 className="font-semibold text-[var(--tcet-dark)] dark:text-white mb-2">Speakers:</h4>
-                            <ul className="space-y-1">
-                              {event.speakers.map((speaker, i) => (
-                                <li key={i} className="text-[var(--tcet-dark)]/70 dark:text-white/70 text-sm">
-                                  • {speaker}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
                       </div>
 
-                      <div className="border-t border-gray-200 dark:border-gray-600 pt-4">
-                        <div className="flex items-center justify-between mb-4">
-                          <div className="text-sm text-[var(--tcet-dark)]/60 dark:text-white/60">
-                            Registration Deadline: {event.registrationDeadline}
-                          </div>
-                        </div>
-                        
-                        <div className="flex gap-3">
-                          <Button 
-                            className={`flex-1 ${
-                              event.status === 'registration-open' 
-                                ? 'bg-[var(--tcet-blue)] hover:bg-blue-700' 
-                                : 'bg-gray-400 cursor-not-allowed'
-                            }`}
-                            disabled={event.status !== 'registration-open'}
-                          >
-                            {event.status === 'registration-open' ? 'Register Now' : 'Registration Opens Soon'}
-                          </Button>
-                          <Button variant="outline">
-                            <ExternalLink className="w-4 h-4 mr-2" />
-                            Details
-                          </Button>
-                        </div>
-                      </div>
+                      <Button size="sm" className="w-full bg-[var(--tcet-blue)] hover:bg-blue-700">
+                        Register
+                      </Button>
                     </CardContent>
                   </Card>
                 ))}
               </div>
             </TabsContent>
 
-            {/* Past Events */}
             <TabsContent value="past">
-              <div className="mb-8">
-                <h2 className="text-3xl font-bold text-[var(--tcet-dark)] dark:text-white mb-4">Past Events Gallery</h2>
-                <p className="text-[var(--tcet-dark)]/70 dark:text-white/70 mb-8">
-                  Highlights from our successful events and the impact they've made
-                </p>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-8">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {pastEvents.map((event, index) => (
-                  <Card key={index} className="hover:shadow-lg transition-all duration-300">
+                  <Card key={index} className="hover:shadow-lg transition-shadow duration-300 opacity-90">
                     <CardHeader>
-                      <div className="flex items-start justify-between">
-                        <div>
-                          <CardTitle className="text-xl text-[var(--tcet-dark)] dark:text-white mb-2">
-                            {event.title}
-                          </CardTitle>
-                          <div className="flex items-center text-[var(--tcet-dark)]/70 dark:text-white/70 mb-2">
-                            <Calendar className="w-4 h-4 mr-2 text-[var(--tcet-blue)]" />
-                            <span className="text-sm">{event.date}</span>
-                          </div>
-                        </div>
-                        <Award className="w-6 h-6 text-[var(--tcet-blue)]" />
+                      <div className="flex items-start justify-between mb-2">
+                        <Badge variant="outline" className="text-[var(--tcet-dark)]/60 dark:text-white/60">
+                          {event.type}
+                        </Badge>
+                        <Badge variant="secondary">
+                          Completed
+                        </Badge>
                       </div>
-                      <CardDescription>{event.description}</CardDescription>
+                      <CardTitle className="text-lg text-[var(--tcet-dark)] dark:text-white">
+                        {event.title}
+                      </CardTitle>
                     </CardHeader>
-                    
                     <CardContent>
-                      <div className="space-y-4">
-                        <div className="flex items-center justify-between text-sm">
-                          <span className="text-[var(--tcet-blue)] font-medium">
-                            <Users className="w-4 h-4 inline mr-1" />
-                            {event.participants}
-                          </span>
-                          <span className="text-[var(--tcet-dark)]/60 dark:text-white/60">
-                            ⭐ {event.feedback}
-                          </span>
+                      <p className="text-[var(--tcet-dark)]/70 dark:text-white/70 text-sm mb-4">
+                        {event.description}
+                      </p>
+                      
+                      <div className="space-y-2 mb-4">
+                        <div className="flex items-center text-xs text-[var(--tcet-dark)]/60 dark:text-white/60">
+                          <Calendar className="w-3 h-3 mr-2" />
+                          {event.date}
                         </div>
-
-                        <div>
-                          <h4 className="font-semibold text-[var(--tcet-dark)] dark:text-white mb-2">Event Highlights:</h4>
-                          <div className="flex flex-wrap gap-2">
-                            {event.highlights.map((highlight, i) => (
-                              <Badge key={i} variant="outline" className="text-xs">
-                                ✨ {highlight}
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
-
-                        <div className="flex justify-between items-center pt-4 border-t border-gray-200 dark:border-gray-600">
-                          <span className="text-sm text-[var(--tcet-dark)]/60 dark:text-white/60">
-                            📸 {event.images} photos available
-                          </span>
-                          <Button variant="outline" size="sm">
-                            View Gallery
-                          </Button>
+                        <div className="flex items-center text-xs text-[var(--tcet-dark)]/60 dark:text-white/60">
+                          <Users className="w-3 h-3 mr-2" />
+                          Attended: {event.attendees}
                         </div>
                       </div>
+
+                      <Button size="sm" variant="outline" className="w-full">
+                        View Photos
+                      </Button>
                     </CardContent>
                   </Card>
                 ))}
-              </div>
-            </TabsContent>
-
-            {/* Event Calendar */}
-            <TabsContent value="calendar">
-              <div className="text-center py-20">
-                <Calendar className="w-24 h-24 mx-auto mb-6 text-[var(--tcet-blue)]" />
-                <h2 className="text-3xl font-bold text-[var(--tcet-dark)] dark:text-white mb-4">
-                  Interactive Event Calendar
-                </h2>
-                <p className="text-[var(--tcet-dark)]/70 dark:text-white/70 mb-8 max-w-2xl mx-auto">
-                  View all upcoming events in calendar format, set reminders, and sync with your personal calendar.
-                </p>
-                <Button className="bg-[var(--tcet-blue)] hover:bg-blue-700">
-                  Launch Calendar View
-                </Button>
               </div>
             </TabsContent>
           </Tabs>
-        </div>
-      </section>
-
-      {/* Newsletter Signup */}
-      <section className="py-20 bg-[var(--tcet-blue)] text-white">
-        <div className="container mx-auto px-6 text-center">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Never Miss an Event</h2>
-            <p className="text-xl text-white/90 mb-8 leading-relaxed">
-              Subscribe to our newsletter and get notified about upcoming events, workshops, and opportunities.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <Input 
-                placeholder="Enter your email" 
-                className="flex-1 bg-white text-gray-900 border-0"
-              />
-              <Button className="bg-white text-[var(--tcet-blue)] hover:bg-gray-100 px-8 font-semibold">
-                Subscribe
-              </Button>
-            </div>
-          </div>
         </div>
       </section>
 

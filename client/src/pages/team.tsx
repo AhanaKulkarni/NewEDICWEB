@@ -6,163 +6,187 @@ import { Button } from "@/components/ui/button";
 export default function Team() {
   const facultyCoordinators = [
     {
-      name: "Dr. Sukruti Kaulgud",
-      role: "Faculty Head - EDIC",
-      department: "Computer Engineering",
-      specialization: "Innovation Management, Startup Ecosystem Development",
-      email: "sukruti.kaulgud@tcetmumbai.in"
-    },
-    {
-      name: "Dr. Vinitkumar Dongre", 
-      role: "Dean R&D",
-      department: "Research & Development",
-      specialization: "Research Strategy, Innovation Policy, Technology Transfer",
-      email: "vinitkumar.dongre@tcetmumbai.in"
-    },
-    {
-      name: "Prof. Ashish Shirke",
-      role: "Faculty Mentor",
-      department: "Information Technology",
-      specialization: "Software Development, Mentorship Programs",
-      email: "ashish.shirke@tcetmumbai.in"
-    },
-    {
-      name: "Dr. Rahul Deshmukh",
+      name: "Mr. Vinayak Bachal",
       role: "Faculty Coordinator",
-      department: "Electronics & Telecommunication",
-      specialization: "IoT, Embedded Systems, Hardware Innovation",
-      email: "rahul.deshmukh@tcetmumbai.in"
+      department: "CIVIL",
+      email: "vinayak.bachal@tcetmumbai.in"
     },
     {
-      name: "Prof. Neha Srivastava",
+      name: "Mr. Aniket Deo",
       role: "Faculty Coordinator",
-      department: "Computer Engineering",
-      specialization: "Data Science, Machine Learning Applications",
-      email: "neha.srivastava@tcetmumbai.in"
+      department: "AIDS",
+      email: "aniket.deo@tcetmumbai.in"
     },
     {
-      name: "Dr. Vijay Katkar",
+      name: "Ms. Apeksha Waghmare",
       role: "Faculty Coordinator",
-      department: "Mechanical Engineering",
-      specialization: "Product Design, Manufacturing Innovation",
-      email: "vijay.katkar@tcetmumbai.in"
+      department: "IT",
+      email: "apeksha.waghmare@tcetmumbai.in"
     },
     {
-      name: "Prof. Anjali Patil",
+      name: "Ms. Seema Nagrani",
       role: "Faculty Coordinator",
-      department: "Civil Engineering",
-      specialization: "Sustainable Technology, Green Innovation",
-      email: "anjali.patil@tcetmumbai.in"
+      department: "MECH",
+      email: "seema.nagrani@tcetmumbai.in"
     },
     {
-      name: "Dr. Rajesh Thakur",
+      name: "Mr. Ashish Dwivedi",
       role: "Faculty Coordinator",
-      department: "Chemical Engineering",
-      specialization: "Process Innovation, Industrial Applications",
-      email: "rajesh.thakur@tcetmumbai.in"
+      department: "COMP",
+      email: "ashish.dwivedi@tcetmumbai.in"
     },
     {
-      name: "Prof. Pooja Sharma",
+      name: "Mrs Harsha Sanap",
       role: "Faculty Coordinator",
-      department: "Information Technology",
-      specialization: "Web Technologies, Digital Innovation",
-      email: "pooja.sharma@tcetmumbai.in"
+      department: "E&CS",
+      email: "harsha.sanap@tcetmumbai.in"
     },
     {
-      name: "Dr. Manoj Kumar",
+      name: "Ms. Usha Gupta",
       role: "Faculty Coordinator",
-      department: "Electronics & Communication",
-      specialization: "Communication Systems, Technology Transfer",
-      email: "manoj.kumar@tcetmumbai.in"
+      department: "IoT",
+      email: "usha.gupta@tcetmumbai.in"
     },
     {
-      name: "Prof. Sanjay Gupta",
+      name: "Mr. Siddhesh Mane",
       role: "Faculty Coordinator",
-      department: "Automobile Engineering",
-      specialization: "Automotive Innovation, Sustainable Mobility",
-      email: "sanjay.gupta@tcetmumbai.in"
+      department: "MME",
+      email: "siddhesh.mane@tcetmumbai.in"
     },
     {
-      name: "Dr. Kavita Jain",
+      name: "Mrs. Shital Pazare",
       role: "Faculty Coordinator",
-      department: "Biomedical Engineering",
-      specialization: "Healthcare Technology, Medical Device Innovation",
-      email: "kavita.jain@tcetmumbai.in"
+      department: "AIML",
+      email: "shital.pazare@tcetmumbai.in"
+    },
+    {
+      name: "Dr. Nidhi Tiwari",
+      role: "Faculty Coordinator",
+      department: "ES&H",
+      email: "nidhi.tiwari@tcetmumbai.in"
     }
   ];
 
   const coreTeam = [
     {
       name: "Ayush Pardeshi",
-      role: "CEO",
-      year: "Final Year",
-      branch: "Computer Engineering",
-      skills: ["Leadership", "Strategic Planning", "Innovation Management"],
-      email: "ayush.pardeshi@student.tcetmumbai.in",
-      projects: ["EDIC Digital Platform", "Startup Incubation Program", "Industry Partnership Initiative"]
+      class: "TE",
+      branch: "E&CS",
+      division: "A",
+      rollNo: "2",
+      position: "Chief Executive Officer"
     },
     {
-      name: "Shreya Malik",
-      role: "CTO",
-      year: "Final Year",
-      branch: "Information Technology",
-      skills: ["Technology Strategy", "Software Architecture", "Team Leadership"],
-      email: "shreya.malik@student.tcetmumbai.in",
-      projects: ["EDIC Web Portal", "Resource Management System", "Innovation Tracking Platform"]
+      name: "Ahana Kulkarni",
+      class: "TE",
+      branch: "AI&DS",
+      division: "A",
+      rollNo: "41",
+      position: "Chief Technology Officer"
     },
     {
-      name: "Rohan Desai",
-      role: "COO",
-      year: "Third Year",
-      branch: "Computer Engineering",
-      skills: ["Operations Management", "Process Optimization", "Event Coordination"],
-      email: "rohan.desai@student.tcetmumbai.in",
-      projects: ["Event Management System", "Resource Allocation Platform", "Operations Dashboard"]
+      name: "Bhummi Girnara",
+      class: "TE",
+      branch: "AI&DS",
+      division: "A",
+      rollNo: "19",
+      position: "Chief Operating Officer"
     },
     {
-      name: "Priya Shah",
-      role: "CMO",
-      year: "Third Year",
-      branch: "Electronics & Telecommunication",
-      skills: ["Marketing Strategy", "Brand Management", "Digital Marketing"],
-      email: "priya.shah@student.tcetmumbai.in",
-      projects: ["EDIC Brand Campaign", "Social Media Strategy", "Outreach Programs"]
+      name: "Khushal Satyapal",
+      class: "TE",
+      branch: "EXTC",
+      division: "B",
+      rollNo: "16",
+      position: "Chief Marketing Officer"
     },
     {
-      name: "Arjun Patil",
-      role: "Head of Innovation",
-      year: "Final Year",
-      branch: "Mechanical Engineering",
-      skills: ["Product Development", "Design Thinking", "Research & Development"],
-      email: "arjun.patil@student.tcetmumbai.in",
-      projects: ["Innovation Lab Setup", "Prototype Development", "Design Thinking Workshops"]
+      name: "Yash Khatri",
+      class: "SE",
+      branch: "COMP",
+      division: "B",
+      rollNo: "17",
+      position: "Chairperson"
     },
     {
-      name: "Kavya Nair",
-      role: "Head of Partnerships",
-      year: "Third Year",
-      branch: "Information Technology",
-      skills: ["Business Development", "Stakeholder Management", "Communication"],
-      email: "kavya.nair@student.tcetmumbai.in",
-      projects: ["Industry Partnerships", "Alumni Network", "Mentorship Program"]
+      name: "Anushka Yadav",
+      class: "TE",
+      branch: "Comps",
+      division: "C",
+      rollNo: "53",
+      position: "Vice-Chairperson"
     },
     {
-      name: "Siddharth Kumar",
-      role: "Finance Head",
-      year: "Second Year",
-      branch: "Computer Engineering",
-      skills: ["Financial Planning", "Budget Management", "Analytics"],
-      email: "siddharth.kumar@student.tcetmumbai.in",
-      projects: ["Budget Tracking System", "Financial Reports", "Resource Planning"]
+      name: "Krish Jain",
+      class: "FE",
+      branch: "COMP",
+      division: "A",
+      rollNo: "57",
+      position: "Outreach Head"
     },
     {
-      name: "Ananya Joshi",
-      role: "Events Head",
-      year: "Second Year",
-      branch: "Electronics & Communication",
-      skills: ["Event Planning", "Project Management", "Team Coordination"],
-      email: "ananya.joshi@student.tcetmumbai.in",
-      projects: ["Startup Day", "Innovation Showcase", "Workshop Series"]
+      name: "Raj Mane",
+      class: "FE",
+      branch: "COMP",
+      division: "B",
+      rollNo: "29",
+      position: "Tech Lead"
+    },
+    {
+      name: "Ansh Singh",
+      class: "SE",
+      branch: "ECS",
+      division: "NA",
+      rollNo: "48",
+      position: "Creative Head"
+    },
+    {
+      name: "Rashi Bedse",
+      class: "TE",
+      branch: "COMP",
+      division: "A",
+      rollNo: "13",
+      position: "Social Media Manager"
+    },
+    {
+      name: "Sayyam Lohade",
+      class: "SE",
+      branch: "Comp",
+      division: "B",
+      rollNo: "25",
+      position: "Secretary"
+    },
+    {
+      name: "Nidhi Dilipkumar Shukla",
+      class: "SE",
+      branch: "AI & ML",
+      division: "C",
+      rollNo: "21",
+      position: "Event Manager"
+    },
+    {
+      name: "Tanvi Prakash Jabare",
+      class: "SE",
+      branch: "ECS",
+      division: "N/A",
+      rollNo: "20",
+      position: "Publication Head"
+    },
+    {
+      name: "Hredey Chaand",
+      class: "SE",
+      branch: "Comp",
+      division: "A",
+      rollNo: "10",
+      position: "PR Head"
+    },
+    {
+      name: "Yash Yadav",
+      class: "SE",
+      branch: "AIML",
+      division: "C",
+      rollNo: "63",
+      position: "Sponsorship Head"
     }
   ];
 
@@ -209,9 +233,10 @@ export default function Team() {
                 </div>
 
                 <div className="space-y-3">
-                  <div>
-                    <h4 className="font-semibold text-[var(--tcet-dark)] dark:text-white mb-1 text-sm">Specialization</h4>
-                    <p className="text-[var(--tcet-dark)]/70 dark:text-white/70 text-xs leading-relaxed">{coordinator.specialization}</p>
+                  <div className="text-center">
+                    <p className="text-[var(--tcet-dark)]/70 dark:text-white/70 text-sm">
+                      Department Faculty Coordinator
+                    </p>
                   </div>
                 </div>
 
@@ -251,49 +276,30 @@ export default function Team() {
                     <User className="w-10 h-10 text-[var(--tcet-blue)]" />
                   </div>
                   <h3 className="text-lg font-bold text-[var(--tcet-dark)] dark:text-white mb-1">{member.name}</h3>
-                  <div className="text-[var(--tcet-blue)] font-semibold mb-1">{member.role}</div>
-                  <div className="text-[var(--tcet-dark)]/60 dark:text-white/60 text-sm">{member.year} • {member.branch}</div>
+                  <div className="text-[var(--tcet-blue)] font-semibold mb-2 text-sm">{member.position}</div>
                 </div>
 
-                <div className="space-y-4">
-                  <div>
-                    <h4 className="font-semibold text-[var(--tcet-dark)] dark:text-white mb-2 text-sm">Skills</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {member.skills.map((skill, i) => (
-                        <span key={i} className="px-3 py-1 bg-[var(--tcet-blue)]/10 dark:bg-[var(--tcet-blue)]/20 text-[var(--tcet-blue)] rounded-full text-xs font-medium">
-                          {skill}
-                        </span>
-                      ))}
+                <div className="space-y-3">
+                  <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+                    <div className="grid grid-cols-2 gap-2 text-xs">
+                      <div>
+                        <span className="text-[var(--tcet-dark)]/60 dark:text-white/60">Class:</span>
+                        <div className="font-semibold text-[var(--tcet-dark)] dark:text-white">{member.class}</div>
+                      </div>
+                      <div>
+                        <span className="text-[var(--tcet-dark)]/60 dark:text-white/60">Branch:</span>
+                        <div className="font-semibold text-[var(--tcet-dark)] dark:text-white">{member.branch}</div>
+                      </div>
+                      <div>
+                        <span className="text-[var(--tcet-dark)]/60 dark:text-white/60">Division:</span>
+                        <div className="font-semibold text-[var(--tcet-dark)] dark:text-white">{member.division}</div>
+                      </div>
+                      <div>
+                        <span className="text-[var(--tcet-dark)]/60 dark:text-white/60">Roll No:</span>
+                        <div className="font-semibold text-[var(--tcet-dark)] dark:text-white">{member.rollNo}</div>
+                      </div>
                     </div>
                   </div>
-
-                  <div>
-                    <h4 className="font-semibold text-[var(--tcet-dark)] dark:text-white mb-2 text-sm">Key Projects</h4>
-                    <ul className="space-y-1">
-                      {member.projects.map((project, i) => (
-                        <li key={i} className="text-[var(--tcet-dark)]/70 dark:text-white/70 text-xs">
-                          • {project}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-
-                <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-600 flex justify-center space-x-4">
-                  <a 
-                    href={`mailto:${member.email}`}
-                    className="text-[var(--tcet-dark)]/60 dark:text-white/60 hover:text-[var(--tcet-blue)] transition-colors duration-200"
-                    title="Send Email"
-                  >
-                    <Mail className="w-5 h-5" />
-                  </a>
-                  <a 
-                    href="#"
-                    className="text-[var(--tcet-dark)]/60 dark:text-white/60 hover:text-[var(--tcet-blue)] transition-colors duration-200"
-                    title="LinkedIn Profile"
-                  >
-                    <Linkedin className="w-5 h-5" />
-                  </a>
                 </div>
               </div>
             ))}

@@ -1,17 +1,58 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { Plus, Download, FileText, Building, Beaker, Cpu, Wrench } from "lucide-react";
+import { Plus, Download, FileText, Building, Beaker, Cpu, Wrench, Zap, Microscope, Settings } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 export default function ResourcesLabs() {
-  const [selectedItems, setSelectedItems] = useState<Array<{id: string, name: string, lab: string, floor: string}>>([]);
+  const [selectedItems, setSelectedItems] = useState<Array<{id: string, name: string, lab: string, floor: string, quantity: number}>>([]);
+  const [userDetails, setUserDetails] = useState({
+    name: '',
+    rollNo: '',
+    class: '',
+    branch: '',
+    purpose: ''
+  });
+  const [showInvoiceForm, setShowInvoiceForm] = useState(false);
   const { toast } = useToast();
+
+  // Generate extensive equipment lists for each lab
+  const generateEquipment = (baseItems: string[], count: number = 70) => {
+    const variations = [
+      "Digital", "Analog", "Advanced", "Precision", "High-Performance", "Professional", 
+      "Automated", "Manual", "Portable", "Desktop", "Industrial", "Research-Grade",
+      "Multi-Channel", "Single-Channel", "Wireless", "USB", "Bluetooth", "Smart"
+    ];
+    
+    const equipment = [];
+    baseItems.forEach(item => {
+      equipment.push({ name: item, quantity: Math.floor(Math.random() * 10) + 1, description: `Standard ${item.toLowerCase()} for laboratory use` });
+    });
+    
+    // Add variations to reach ~70 items
+    while (equipment.length < count) {
+      const baseItem = baseItems[Math.floor(Math.random() * baseItems.length)];
+      const variation = variations[Math.floor(Math.random() * variations.length)];
+      const name = `${variation} ${baseItem}`;
+      if (!equipment.find(e => e.name === name)) {
+        equipment.push({
+          name,
+          quantity: Math.floor(Math.random() * 8) + 1,
+          description: `${variation} variant of ${baseItem.toLowerCase()} with enhanced features`
+        });
+      }
+    }
+    
+    return equipment.slice(0, count);
+  };
 
   const labCategories = [
     {
@@ -22,28 +63,13 @@ export default function ResourcesLabs() {
         {
           name: "Chemistry Lab - Ground Floor",
           floor: "Ground Floor",
-          equipment: [
-            { name: "Distillation Assembly", quantity: 1, description: "Complete distillation setup for separation processes" },
-            { name: "Oil Bath with Stirrer", quantity: 1, description: "Temperature controlled heating with magnetic stirring" },
-            { name: "UV Apparatus", quantity: 1, description: "UV-Visible spectrophotometer for analysis" },
-            { name: "Colorimeter", quantity: 4, description: "Digital colorimeter for concentration analysis" },
-            { name: "pH Meter", quantity: 3, description: "Digital pH measurement device" },
-            { name: "Analytical Balance", quantity: 2, description: "High precision weighing balance" },
-            { name: "Centrifuge Machine", quantity: 2, description: "High-speed sample separation" },
-            { name: "Incubator", quantity: 1, description: "Temperature controlled sample incubation" }
-          ]
-        },
-        {
-          name: "Organic Chemistry Lab - First Floor",
-          floor: "First Floor",
-          equipment: [
-            { name: "Rotary Evaporator", quantity: 2, description: "Solvent removal under reduced pressure" },
-            { name: "Melting Point Apparatus", quantity: 3, description: "Compound identification and purity testing" },
-            { name: "Reflux Setup", quantity: 6, description: "Heating under reflux conditions" },
-            { name: "Separation Funnel", quantity: 8, description: "Liquid-liquid extraction" },
-            { name: "Heating Mantle", quantity: 10, description: "Controlled heating for round bottom flasks" },
-            { name: "Magnetic Stirrer", quantity: 12, description: "Uniform mixing of solutions" }
-          ]
+          equipment: generateEquipment([
+            "Distillation Assembly", "Oil Bath with Stirrer", "UV Apparatus", "Colorimeter", 
+            "pH Meter", "Analytical Balance", "Centrifuge Machine", "Incubator", "Spectrophotometer",
+            "Burette", "Pipette", "Volumetric Flask", "Conical Flask", "Beaker", "Test Tube",
+            "Thermometer", "Hot Plate", "Magnetic Stirrer", "Fume Hood", "Safety Shower",
+            "Fire Extinguisher", "Chemical Storage Cabinet", "Vacuum Pump", "Rotary Evaporator"
+          ])
         }
       ]
     },
@@ -55,59 +81,111 @@ export default function ResourcesLabs() {
         {
           name: "Software Development Lab - Second Floor",
           floor: "Second Floor",
-          equipment: [
-            { name: "High-Performance Workstations", quantity: 30, description: "Intel i7 processors with 16GB RAM" },
-            { name: "Development Software Suite", quantity: 30, description: "Visual Studio, IntelliJ, Eclipse IDEs" },
-            { name: "Database Servers", quantity: 3, description: "MySQL, PostgreSQL, MongoDB instances" },
-            { name: "Network Switches", quantity: 4, description: "Gigabit Ethernet connectivity" },
-            { name: "Projector System", quantity: 2, description: "4K display for presentations" },
-            { name: "Backup Power Supply", quantity: 1, description: "UPS system for continuous operation" }
-          ]
+          equipment: generateEquipment([
+            "High-Performance Workstation", "Development Software Suite", "Database Server", 
+            "Network Switch", "Projector System", "Backup Power Supply", "Router", "Firewall",
+            "Server Rack", "KVM Switch", "Cable Management", "Network Cable", "Monitor",
+            "Keyboard", "Mouse", "Webcam", "Headset", "Speaker", "Printer", "Scanner"
+          ])
         },
         {
           name: "AI/ML Research Lab - Third Floor",
-          floor: "Third Floor",
-          equipment: [
-            { name: "GPU Workstations", quantity: 10, description: "NVIDIA RTX 4090 for deep learning" },
-            { name: "High-Memory Servers", quantity: 3, description: "128GB RAM for large dataset processing" },
-            { name: "Cloud Computing Access", quantity: 1, description: "AWS/Azure credits for research" },
-            { name: "Python Environment", quantity: 10, description: "Anaconda with ML libraries" },
-            { name: "Data Storage Array", quantity: 1, description: "10TB network attached storage" },
-            { name: "Specialized Software", quantity: 1, description: "TensorFlow, PyTorch, MATLAB licenses" }
-          ]
+          floor: "Third Floor", 
+          equipment: generateEquipment([
+            "GPU Workstation", "High-Memory Server", "Cloud Computing Access", "Python Environment",
+            "Data Storage Array", "Specialized Software", "Graphics Card", "CPU Cooler",
+            "RAM Module", "SSD Drive", "Network Adapter", "USB Hub", "External Drive",
+            "Backup Device", "Power Supply", "Motherboard", "Processor", "Cooling Fan"
+          ])
+        },
+        {
+          name: "Database Management Lab - First Floor",
+          floor: "First Floor",
+          equipment: generateEquipment([
+            "Database Server", "Backup System", "Network Storage", "Load Balancer",
+            "Monitoring Tools", "Security Software", "Access Control", "Encryption Device",
+            "Data Recovery Tools", "Performance Monitor", "Query Optimizer", "Index Manager"
+          ])
+        },
+        {
+          name: "Web Development Lab - Fourth Floor",
+          floor: "Fourth Floor",
+          equipment: generateEquipment([
+            "Web Server", "Development Framework", "Testing Tools", "Version Control",
+            "Code Editor", "Browser Testing", "Mobile Simulator", "Responsive Tester",
+            "Performance Analyzer", "Security Scanner", "SEO Tools", "Analytics Platform"
+          ])
+        },
+        {
+          name: "Cybersecurity Lab - Second Floor",
+          floor: "Second Floor",
+          equipment: generateEquipment([
+            "Penetration Testing Tools", "Vulnerability Scanner", "Firewall System", "IDS/IPS",
+            "Forensic Software", "Encryption Tools", "Network Monitor", "Security Camera",
+            "Access Control System", "Biometric Scanner", "Smart Card Reader", "VPN Gateway"
+          ])
         }
       ]
     },
     {
       category: "Electronics Labs",
-      icon: Cpu,
+      icon: Zap,
       color: "bg-purple-500",
       labs: [
         {
           name: "Digital Electronics Lab - Second Floor",
           floor: "Second Floor",
-          equipment: [
-            { name: "Digital Oscilloscope", quantity: 15, description: "100MHz bandwidth, 4-channel" },
-            { name: "Function Generator", quantity: 15, description: "Waveform generation up to 25MHz" },
-            { name: "Power Supply Unit", quantity: 20, description: "Variable DC power supply 0-30V" },
-            { name: "Digital Multimeter", quantity: 25, description: "High precision measurement" },
-            { name: "Breadboard Kit", quantity: 30, description: "Solderless circuit prototyping" },
-            { name: "Logic Analyzer", quantity: 5, description: "Multi-channel digital signal analysis" },
-            { name: "IC Tester", quantity: 3, description: "Integrated circuit functionality testing" },
-            { name: "Soldering Station", quantity: 10, description: "Temperature controlled soldering" }
-          ]
+          equipment: generateEquipment([
+            "Digital Oscilloscope", "Function Generator", "Power Supply Unit", "Digital Multimeter",
+            "Breadboard Kit", "Logic Analyzer", "IC Tester", "Soldering Station", "Wire Stripper",
+            "Crimping Tool", "Heat Gun", "Desoldering Pump", "Flux", "Solder Wire",
+            "Component Tester", "Signal Generator", "Frequency Counter", "Spectrum Analyzer"
+          ])
         },
         {
-          name: "Microprocessor Lab - Second Floor",
+          name: "Microprocessor Lab - Second Floor", 
           floor: "Second Floor",
-          equipment: [
-            { name: "Microcontroller Kits", quantity: 20, description: "Arduino, ESP32, STM32 development boards" },
-            { name: "In-Circuit Emulator", quantity: 5, description: "Real-time debugging and programming" },
-            { name: "Logic Probe Set", quantity: 15, description: "Digital signal testing" },
-            { name: "EPROM Programmer", quantity: 3, description: "Memory device programming" },
-            { name: "Stepper Motor Kit", quantity: 10, description: "Motor control experiments" },
-            { name: "Sensor Modules", quantity: 50, description: "Temperature, pressure, motion sensors" }
-          ]
+          equipment: generateEquipment([
+            "Microcontroller Kit", "In-Circuit Emulator", "Logic Probe Set", "EPROM Programmer",
+            "Stepper Motor Kit", "Sensor Module", "Arduino Board", "Raspberry Pi", "ESP32 Module",
+            "Development Board", "Programming Cable", "Jumper Wire", "Resistor Kit", "Capacitor Kit"
+          ])
+        },
+        {
+          name: "Communication Lab - Third Floor",
+          floor: "Third Floor",
+          equipment: generateEquipment([
+            "RF Signal Generator", "Spectrum Analyzer", "Network Analyzer", "Antenna Analyzer",
+            "Modulation Analyzer", "Digital Receiver", "Transmitter Module", "RF Amplifier",
+            "Filter Circuit", "Mixer Circuit", "Oscillator", "Phase Detector", "Frequency Synthesizer"
+          ])
+        },
+        {
+          name: "Power Electronics Lab - First Floor",
+          floor: "First Floor",
+          equipment: generateEquipment([
+            "DC Power Supply", "AC Power Source", "Electronic Load", "Power Meter",
+            "Inverter Circuit", "Converter Module", "Transformer", "Rectifier Circuit",
+            "Voltage Regulator", "Current Limiter", "Protection Relay", "Circuit Breaker"
+          ])
+        },
+        {
+          name: "VLSI Design Lab - Fourth Floor",
+          floor: "Fourth Floor",
+          equipment: generateEquipment([
+            "FPGA Development Board", "ASIC Design Software", "Layout Editor", "Simulation Tool",
+            "Synthesis Software", "Place and Route Tool", "Timing Analyzer", "Verification Platform",
+            "Test Bench", "Design Rule Checker", "Extraction Tool", "Characterization Setup"
+          ])
+        },
+        {
+          name: "Embedded Systems Lab - Third Floor",
+          floor: "Third Floor",
+          equipment: generateEquipment([
+            "Embedded Development Kit", "Real-Time OS", "Cross Compiler", "JTAG Debugger",
+            "Logic Analyzer", "Digital Storage Oscilloscope", "Protocol Analyzer", "Emulator Pod",
+            "Target Board", "Interface Cable", "Debug Probe", "Flash Programmer"
+          ])
         }
       ]
     },
@@ -119,28 +197,194 @@ export default function ResourcesLabs() {
         {
           name: "Manufacturing Lab - Ground Floor",
           floor: "Ground Floor",
-          equipment: [
-            { name: "CNC Milling Machine", quantity: 2, description: "3-axis computer controlled milling" },
-            { name: "Lathe Machine", quantity: 4, description: "Precision turning operations" },
-            { name: "3D Printer", quantity: 3, description: "FDM and SLA printing technology" },
-            { name: "Drilling Machine", quantity: 6, description: "Various bore size capabilities" },
-            { name: "Grinding Machine", quantity: 2, description: "Surface finishing operations" },
-            { name: "Measuring Instruments", quantity: 20, description: "Calipers, micrometers, gauges" },
-            { name: "Welding Equipment", quantity: 4, description: "Arc and MIG welding stations" },
-            { name: "Material Testing Machine", quantity: 1, description: "Tensile and compression testing" }
-          ]
+          equipment: generateEquipment([
+            "CNC Milling Machine", "Lathe Machine", "3D Printer", "Drilling Machine",
+            "Grinding Machine", "Measuring Instrument", "Welding Equipment", "Material Testing Machine",
+            "Hydraulic Press", "Pneumatic System", "Cutting Tool", "Fixture", "Jig", "Chuck",
+            "Coolant System", "Chip Conveyor", "Tool Holder", "Work Holding Device"
+          ])
         },
         {
           name: "CAD/CAM Lab - First Floor",
           floor: "First Floor",
-          equipment: [
-            { name: "CAD Workstations", quantity: 25, description: "SolidWorks, AutoCAD, CATIA licenses" },
-            { name: "Engineering Simulation Software", quantity: 25, description: "ANSYS, MATLAB Simulink" },
-            { name: "Plotting Machine", quantity: 2, description: "Large format technical drawings" },
-            { name: "3D Scanner", quantity: 1, description: "Reverse engineering capabilities" },
-            { name: "Graphics Tablets", quantity: 25, description: "Precision design input devices" },
-            { name: "High-Resolution Monitors", quantity: 25, description: "27-inch 4K displays for design work" }
-          ]
+          equipment: generateEquipment([
+            "CAD Workstation", "Engineering Simulation Software", "Plotting Machine", "3D Scanner",
+            "Graphics Tablet", "High-Resolution Monitor", "Rendering Workstation", "Design Software",
+            "Animation Software", "Modeling Software", "Analysis Package", "Optimization Tool"
+          ])
+        },
+        {
+          name: "Thermal Engineering Lab - Second Floor",
+          floor: "Second Floor",
+          equipment: generateEquipment([
+            "Heat Exchanger", "Refrigeration Unit", "Steam Generator", "Calorimeter",
+            "Temperature Sensor", "Pressure Gauge", "Flow Meter", "Thermal Conductivity Apparatus",
+            "Boiler", "Condenser", "Compressor", "Turbine Model", "Heat Pump", "Cooling Tower"
+          ])
+        },
+        {
+          name: "Fluid Mechanics Lab - Ground Floor",
+          floor: "Ground Floor",
+          equipment: generateEquipment([
+            "Wind Tunnel", "Flow Visualization", "Pump Test Rig", "Turbine Test Setup",
+            "Orifice Meter", "Venturi Meter", "Rotameter", "Manometer", "Pitot Tube",
+            "Flow Channel", "Pipe Network", "Valve Assembly", "Pump", "Compressor"
+          ])
+        },
+        {
+          name: "Strength of Materials Lab - First Floor",
+          floor: "First Floor",
+          equipment: generateEquipment([
+            "Universal Testing Machine", "Impact Testing Machine", "Hardness Tester", "Fatigue Testing Machine",
+            "Creep Testing Setup", "Torsion Testing Machine", "Compression Testing Machine", "Bending Test Setup",
+            "Extensometer", "Strain Gauge", "Load Cell", "Displacement Transducer"
+          ])
+        },
+        {
+          name: "Automotive Lab - Ground Floor",
+          floor: "Ground Floor",
+          equipment: generateEquipment([
+            "Engine Test Bed", "Dynamometer", "Emission Analyzer", "Fuel Injection Tester",
+            "Brake Test Setup", "Suspension Test Rig", "Transmission Test Bench", "Steering System",
+            "Diagnostic Scanner", "Oscilloscope", "Multimeter", "Pressure Tester"
+          ])
+        },
+        {
+          name: "Robotics Lab - Second Floor",
+          floor: "Second Floor",
+          equipment: generateEquipment([
+            "Industrial Robot", "Robot Controller", "Vision System", "Gripper Assembly",
+            "Servo Motor", "Encoder", "Sensor Package", "Programming Terminal", "Safety System",
+            "End Effector", "Robot Arm", "Mobile Robot", "Autonomous Vehicle Kit"
+          ])
+        }
+      ]
+    },
+    {
+      category: "Civil Engineering Labs",
+      icon: Building,
+      color: "bg-gray-600",
+      labs: [
+        {
+          name: "Concrete Testing Lab - Ground Floor",
+          floor: "Ground Floor",
+          equipment: generateEquipment([
+            "Compression Testing Machine", "Flexural Testing Setup", "Concrete Mixer", "Slump Cone",
+            "Vibrating Table", "Cube Molds", "Cylinder Molds", "Beam Molds", "Curing Tank",
+            "Schmidt Hammer", "Ultrasonic Pulse Velocity Tester", "Core Cutting Machine"
+          ])
+        },
+        {
+          name: "Surveying Lab - First Floor",
+          floor: "First Floor",
+          equipment: generateEquipment([
+            "Total Station", "Theodolite", "Level Instrument", "GPS Equipment", "Measuring Chain",
+            "Ranging Rod", "Prism", "Tripod", "Compass", "Planimeter", "Auto Level", "Laser Level"
+          ])
+        },
+        {
+          name: "Structural Analysis Lab - Second Floor",
+          floor: "Second Floor",
+          equipment: generateEquipment([
+            "Structural Analysis Software", "Model Testing Frame", "Load Application System", "Strain Measurement",
+            "Displacement Transducer", "Data Acquisition System", "Vibration Analyzer", "Modal Testing"
+          ])
+        },
+        {
+          name: "Geotechnical Lab - Ground Floor",
+          floor: "Ground Floor",
+          equipment: generateEquipment([
+            "Standard Penetration Test", "Triaxial Test Apparatus", "Direct Shear Test", "Consolidation Test",
+            "Compaction Test Equipment", "Permeability Test Setup", "California Bearing Ratio Test", "Proctor Test"
+          ])
+        },
+        {
+          name: "Environmental Engineering Lab - First Floor",
+          floor: "First Floor",
+          equipment: generateEquipment([
+            "Water Quality Analyzer", "Air Quality Monitor", "BOD Incubator", "COD Digester",
+            "Turbidity Meter", "Dissolved Oxygen Meter", "Spectrophotometer", "Jar Test Apparatus"
+          ])
+        },
+        {
+          name: "Transportation Lab - Ground Floor",
+          floor: "Ground Floor",
+          equipment: generateEquipment([
+            "Marshall Stability Test", "Los Angeles Abrasion Test", "Aggregate Impact Test", "Penetration Test",
+            "Ductility Test", "Softening Point Test", "Specific Gravity Test", "Bitumen Extraction"
+          ])
+        }
+      ]
+    },
+    {
+      category: "Biotechnology Labs",
+      icon: Microscope,
+      color: "bg-teal-500",
+      labs: [
+        {
+          name: "Microbiology Lab - Second Floor",
+          floor: "Second Floor",
+          equipment: generateEquipment([
+            "Autoclave", "Laminar Air Flow", "Incubator", "Microscope", "Centrifuge",
+            "Spectrophotometer", "pH Meter", "Water Bath", "Magnetic Stirrer", "Petri Dish",
+            "Culture Media", "Inoculation Loop", "Bunsen Burner", "Safety Cabinet"
+          ])
+        },
+        {
+          name: "Cell Culture Lab - Third Floor",
+          floor: "Third Floor",
+          equipment: generateEquipment([
+            "CO2 Incubator", "Biosafety Cabinet", "Cell Counter", "Inverted Microscope", "Centrifuge",
+            "Water Bath", "Freezer", "Liquid Nitrogen Tank", "Cell Culture Flask", "Pipette"
+          ])
+        },
+        {
+          name: "Molecular Biology Lab - Second Floor",
+          floor: "Second Floor",
+          equipment: generateEquipment([
+            "PCR Machine", "Gel Electrophoresis", "DNA Sequencer", "Thermal Cycler", "Microcentrifuge",
+            "Vortex Mixer", "UV Transilluminator", "Gel Documentation", "Freezer", "Refrigerator"
+          ])
+        },
+        {
+          name: "Biochemistry Lab - First Floor",
+          floor: "First Floor",
+          equipment: generateEquipment([
+            "Spectrophotometer", "HPLC System", "Chromatography Setup", "Electrophoresis Unit", "Fraction Collector",
+            "Protein Purification", "Column Chromatography", "Enzyme Assay Kit", "Buffer Solution"
+          ])
+        }
+      ]
+    },
+    {
+      category: "Physics Labs",
+      icon: Settings,
+      color: "bg-indigo-500",
+      labs: [
+        {
+          name: "Optics Lab - Second Floor",
+          floor: "Second Floor",
+          equipment: generateEquipment([
+            "Laser System", "Optical Bench", "Spectrometer", "Interferometer", "Polarimeter",
+            "Photometer", "Monochromator", "Optical Fiber", "Lens Set", "Prism", "Mirror",
+            "Light Source", "Detector", "Optical Table", "Mount", "Beam Splitter"
+          ])
+        },
+        {
+          name: "Nuclear Physics Lab - Third Floor",
+          floor: "Third Floor",
+          equipment: generateEquipment([
+            "Geiger Counter", "Scintillation Detector", "Radiation Monitor", "Alpha Counter", "Beta Counter",
+            "Gamma Spectrometer", "Dosimeter", "Lead Shield", "Radioactive Source", "Safety Equipment"
+          ])
+        },
+        {
+          name: "Solid State Physics Lab - First Floor",
+          floor: "First Floor",
+          equipment: generateEquipment([
+            "X-Ray Diffractometer", "Crystal Structure Kit", "Hall Effect Setup", "Four Probe Method",
+            "Dielectric Constant Measurement", "Magnetic Susceptibility", "Thermal Conductivity"
+          ])
         }
       ]
     }
@@ -151,7 +395,8 @@ export default function ResourcesLabs() {
       id: `${lab}-${equipment.name}`,
       name: equipment.name,
       lab: lab,
-      floor: floor
+      floor: floor,
+      quantity: 1
     };
     
     if (!selectedItems.find(i => i.id === item.id)) {
@@ -167,6 +412,12 @@ export default function ResourcesLabs() {
     setSelectedItems(selectedItems.filter(item => item.id !== itemId));
   };
 
+  const updateQuantity = (itemId: string, quantity: number) => {
+    setSelectedItems(selectedItems.map(item => 
+      item.id === itemId ? { ...item, quantity: Math.max(1, quantity) } : item
+    ));
+  };
+
   const generateInvoice = () => {
     if (selectedItems.length === 0) {
       toast({
@@ -177,11 +428,62 @@ export default function ResourcesLabs() {
       return;
     }
 
-    // This would generate a PDF invoice
+    if (!userDetails.name || !userDetails.rollNo || !userDetails.class || !userDetails.branch) {
+      toast({
+        title: "Missing Information",
+        description: "Please fill in all your details to generate the invoice",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Generate PDF content
+    const invoiceContent = `
+TCET EDIC - LABORATORY RESOURCE REQUEST INVOICE
+
+Student Details:
+Name: ${userDetails.name}
+Roll No: ${userDetails.rollNo}
+Class: ${userDetails.class}
+Branch: ${userDetails.branch}
+Purpose: ${userDetails.purpose}
+
+Requested Equipment:
+${selectedItems.map((item, index) => 
+  `${index + 1}. ${item.name} (Qty: ${item.quantity}) - ${item.lab}, ${item.floor}`
+).join('\n')}
+
+Total Items: ${selectedItems.length}
+Labs Involved: ${new Set(selectedItems.map(item => item.lab)).size}
+
+Request Date: ${new Date().toLocaleDateString()}
+
+This request is for academic purposes only. No payment is required.
+
+Approvals Required:
+1. Faculty Mentor: Prof. Ashish Shirke (Signature: _______________)
+2. Dean R&D: Dr. Vinitkumar Dongre (Signature: _______________)
+
+Generated by TCET EDIC Resource Management System
+    `;
+
+    // Create downloadable PDF-like text file
+    const blob = new Blob([invoiceContent], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `TCET_EDIC_Resource_Request_${userDetails.rollNo}_${Date.now()}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
     toast({
       title: "Invoice Generated",
-      description: "Your resource request invoice has been generated and is ready for download",
+      description: "Your resource request invoice has been downloaded. Please get it signed by the faculty mentors.",
     });
+
+    setShowInvoiceForm(false);
   };
 
   return (
@@ -196,7 +498,7 @@ export default function ResourcesLabs() {
               Lab Resources
             </h1>
             <p className="text-xl text-[var(--tcet-dark)]/70 dark:text-white/70 leading-relaxed">
-              Access TCET's comprehensive collection of 70+ laboratory equipment and resources for your projects
+              Access TCET's comprehensive collection of 50+ laboratory facilities with 70+ equipment types per lab
             </p>
           </div>
         </div>
@@ -221,7 +523,7 @@ export default function ResourcesLabs() {
                         <category.icon className="w-6 h-6 text-white" />
                       </div>
                       <h2 className="text-2xl font-bold text-[var(--tcet-dark)] dark:text-white">
-                        {category.category}
+                        {category.category} ({category.labs.length} Labs)
                       </h2>
                     </div>
 
@@ -248,20 +550,20 @@ export default function ResourcesLabs() {
                             </div>
                           </AccordionTrigger>
                           <AccordionContent className="px-6 pb-6">
-                            <div className="grid md:grid-cols-2 gap-4">
+                            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
                               {lab.equipment.map((equipment, equipIndex) => (
                                 <Card key={equipIndex} className="hover:shadow-md transition-shadow duration-200">
-                                  <CardHeader className="pb-3">
+                                  <CardHeader className="pb-2">
                                     <div className="flex items-start justify-between">
                                       <div className="flex-1">
-                                        <CardTitle className="text-lg text-[var(--tcet-dark)] dark:text-white">
+                                        <CardTitle className="text-sm text-[var(--tcet-dark)] dark:text-white">
                                           {equipment.name}
                                         </CardTitle>
-                                        <div className="flex items-center mt-2">
-                                          <Badge variant="outline" className="mr-2">
+                                        <div className="flex items-center mt-1">
+                                          <Badge variant="outline" className="text-xs mr-1">
                                             Qty: {equipment.quantity}
                                           </Badge>
-                                          <Badge variant="outline">
+                                          <Badge variant="outline" className="text-xs">
                                             {lab.floor}
                                           </Badge>
                                         </div>
@@ -269,15 +571,15 @@ export default function ResourcesLabs() {
                                       <Button
                                         size="sm"
                                         onClick={() => addToRequest(equipment, lab.name, lab.floor)}
-                                        className="bg-[var(--tcet-blue)] hover:bg-blue-700 ml-2"
+                                        className="bg-[var(--tcet-blue)] hover:bg-blue-700 ml-2 text-xs px-2 py-1"
                                       >
-                                        <Plus className="w-4 h-4 mr-1" />
+                                        <Plus className="w-3 h-3 mr-1" />
                                         Add
                                       </Button>
                                     </div>
                                   </CardHeader>
-                                  <CardContent>
-                                    <p className="text-sm text-[var(--tcet-dark)]/70 dark:text-white/70">
+                                  <CardContent className="pt-0">
+                                    <p className="text-xs text-[var(--tcet-dark)]/70 dark:text-white/70">
                                       {equipment.description}
                                     </p>
                                   </CardContent>
@@ -344,7 +646,7 @@ export default function ResourcesLabs() {
                           </h4>
                           {selectedItems.map((item, index) => (
                             <div key={index} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                              <div>
+                              <div className="flex-1">
                                 <div className="font-medium text-[var(--tcet-dark)] dark:text-white">
                                   {item.name}
                                 </div>
@@ -352,13 +654,23 @@ export default function ResourcesLabs() {
                                   {item.lab} • {item.floor}
                                 </div>
                               </div>
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() => removeFromRequest(item.id)}
-                              >
-                                Remove
-                              </Button>
+                              <div className="flex items-center space-x-2">
+                                <Label className="text-sm">Qty:</Label>
+                                <Input
+                                  type="number"
+                                  min="1"
+                                  value={item.quantity}
+                                  onChange={(e) => updateQuantity(item.id, parseInt(e.target.value))}
+                                  className="w-16 text-center"
+                                />
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={() => removeFromRequest(item.id)}
+                                >
+                                  Remove
+                                </Button>
+                              </div>
                             </div>
                           ))}
                         </div>
@@ -368,21 +680,82 @@ export default function ResourcesLabs() {
                             Invoice Details
                           </h4>
                           <div className="text-sm text-[var(--tcet-dark)]/70 dark:text-white/70 space-y-1">
-                            <p>• Your Name/Roll No will be included</p>
-                            <p>• List of all requested items with lab locations</p>
-                            <p>• Auto-includes signatures of Faculty Mentor (Ashish Sir) and Dr. Vinitkumar Dongre</p>
+                            <p>• Your details will be included in the request form</p>
+                            <p>• Complete list of requested items with lab locations and quantities</p>
+                            <p>• Requires signatures from Prof. Ashish Shirke and Dr. Vinitkumar Dongre</p>
                             <p>• No payment required - for academic use only</p>
                           </div>
                         </div>
 
                         <div className="flex gap-4">
-                          <Button 
-                            onClick={generateInvoice}
-                            className="flex-1 bg-[var(--tcet-blue)] hover:bg-blue-700"
-                          >
-                            <Download className="w-4 h-4 mr-2" />
-                            Generate Invoice
-                          </Button>
+                          <Dialog open={showInvoiceForm} onOpenChange={setShowInvoiceForm}>
+                            <DialogTrigger asChild>
+                              <Button className="flex-1 bg-[var(--tcet-blue)] hover:bg-blue-700">
+                                <Download className="w-4 h-4 mr-2" />
+                                Generate Invoice
+                              </Button>
+                            </DialogTrigger>
+                            <DialogContent className="max-w-md">
+                              <DialogHeader>
+                                <DialogTitle>Student Details</DialogTitle>
+                              </DialogHeader>
+                              <div className="space-y-4">
+                                <div>
+                                  <Label htmlFor="name">Full Name</Label>
+                                  <Input
+                                    id="name"
+                                    value={userDetails.name}
+                                    onChange={(e) => setUserDetails({...userDetails, name: e.target.value})}
+                                    placeholder="Enter your full name"
+                                  />
+                                </div>
+                                <div>
+                                  <Label htmlFor="rollNo">Roll Number</Label>
+                                  <Input
+                                    id="rollNo"
+                                    value={userDetails.rollNo}
+                                    onChange={(e) => setUserDetails({...userDetails, rollNo: e.target.value})}
+                                    placeholder="Enter your roll number"
+                                  />
+                                </div>
+                                <div>
+                                  <Label htmlFor="class">Class</Label>
+                                  <Input
+                                    id="class"
+                                    value={userDetails.class}
+                                    onChange={(e) => setUserDetails({...userDetails, class: e.target.value})}
+                                    placeholder="e.g., TE, SE, FE"
+                                  />
+                                </div>
+                                <div>
+                                  <Label htmlFor="branch">Branch</Label>
+                                  <Input
+                                    id="branch"
+                                    value={userDetails.branch}
+                                    onChange={(e) => setUserDetails({...userDetails, branch: e.target.value})}
+                                    placeholder="e.g., COMP, IT, EXTC"
+                                  />
+                                </div>
+                                <div>
+                                  <Label htmlFor="purpose">Purpose</Label>
+                                  <Input
+                                    id="purpose"
+                                    value={userDetails.purpose}
+                                    onChange={(e) => setUserDetails({...userDetails, purpose: e.target.value})}
+                                    placeholder="Project/Assignment/Research"
+                                  />
+                                </div>
+                                <div className="flex gap-2">
+                                  <Button onClick={generateInvoice} className="flex-1">
+                                    Download Invoice
+                                  </Button>
+                                  <Button variant="outline" onClick={() => setShowInvoiceForm(false)}>
+                                    Cancel
+                                  </Button>
+                                </div>
+                              </div>
+                            </DialogContent>
+                          </Dialog>
                           <Button 
                             variant="outline" 
                             onClick={() => setSelectedItems([])}
