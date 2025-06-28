@@ -740,7 +740,6 @@ export default function ResourcesLabs() {
                                 <div>
                                   <Label htmlFor="rollNo">Roll Number</Label>
                                   <Input
-                               ```
                                     id="rollNo"
                                     value={userDetails.rollNo}
                                     onChange={(e) => setUserDetails({...userDetails, rollNo: e.target.value})}
