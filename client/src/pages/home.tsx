@@ -12,9 +12,9 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
       <Header />
-      
+
       {/* Hero Section */}
-      <section className="pt-24 pb-20 bg-gradient-to-br from-blue-50 to-white dark:from-gray-800 dark:to-gray-900 transition-colors duration-300">
+      <section className="pt-24 pb-20 bg-cover bg-center" style={{ backgroundImage: `url(/WhatsApp Image 2025-06-27 at 23.43.51_001b3ada_1751048055531.jpg)` }}>
         <div className="container mx-auto px-6">
           <div className="flex flex-col lg:flex-row items-center gap-12">
             <div className="flex-1 text-center lg:text-left">
@@ -256,7 +256,7 @@ export default function Home() {
       </section>
 
       <Footer />
-      
+
       <RegistrationForm 
         isOpen={showRegistrationForm}
         onClose={() => setShowRegistrationForm(false)}
