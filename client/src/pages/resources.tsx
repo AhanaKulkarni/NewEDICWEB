@@ -438,77 +438,192 @@ export default function ResourcesLabs() {
       return;
     }
 
-    // Generate PDF using jsPDF
+    // Generate professional PDF using jsPDF
     const pdf = new jsPDF();
+    const pageWidth = pdf.internal.pageSize.width;
+    const pageHeight = pdf.internal.pageSize.height;
 
-    // Header
-    pdf.setFontSize(20);
-    pdf.setFont('helvetica', 'bold');
-    pdf.text('TCET EDIC', 20, 20);
+    // Header Section with Professional Styling
+    pdf.setFillColor(0, 51, 102); // TCET Blue
+    pdf.rect(0, 0, pageWidth, 35, 'F');
+    
+    // College Logo Area (placeholder)
+    pdf.setFillColor(255, 255, 255);
+    pdf.rect(15, 8, 20, 20, 'F');
+    pdf.setTextColor(0, 51, 102);
+    pdf.setFontSize(8);
+    pdf.text('LOGO', 23, 19);
+
+    // Institution Header
+    pdf.setTextColor(255, 255, 255);
     pdf.setFontSize(16);
-    pdf.text('LABORATORY RESOURCE REQUEST INVOICE', 20, 35);
+    pdf.setFont('helvetica', 'bold');
+    pdf.text('THAKUR COLLEGE OF ENGINEERING & TECHNOLOGY', 45, 15);
+    pdf.setFontSize(12);
+    pdf.text('EDIC - ENTREPRENEURSHIP DEVELOPMENT & INNOVATION CELL', 45, 22);
+    pdf.setFontSize(10);
+    pdf.text('Laboratory Resource Request Form', 45, 28);
 
-    // Student details
+    // Document Title
+    pdf.setTextColor(0, 0, 0);
+    pdf.setFontSize(18);
+    pdf.setFont('helvetica', 'bold');
+    pdf.text('RESOURCE REQUEST INVOICE', pageWidth/2, 50, { align: 'center' });
+
+    // Invoice Info Box
+    pdf.setDrawColor(200, 200, 200);
+    pdf.setLineWidth(0.5);
+    pdf.rect(140, 60, 55, 25);
+    pdf.setFontSize(10);
+    pdf.setFont('helvetica', 'bold');
+    pdf.text('Invoice Details:', 142, 68);
+    pdf.setFont('helvetica', 'normal');
+    pdf.text(`Request ID: REQ${Date.now().toString().slice(-6)}`, 142, 75);
+    pdf.text(`Date: ${new Date().toLocaleDateString('en-IN')}`, 142, 82);
+
+    // Student Information Section
+    pdf.setFillColor(240, 240, 240);
+    pdf.rect(15, 95, pageWidth - 30, 40, 'F');
     pdf.setFontSize(12);
     pdf.setFont('helvetica', 'bold');
-    pdf.text('Student Details:', 20, 55);
+    pdf.setTextColor(0, 0, 0);
+    pdf.text('STUDENT INFORMATION', 20, 105);
+    
+    pdf.setFontSize(10);
     pdf.setFont('helvetica', 'normal');
-    pdf.text(`Name: ${userDetails.name}`, 20, 65);
-    pdf.text(`Roll No: ${userDetails.rollNo}`, 20, 75);
-    pdf.text(`Class: ${userDetails.class}`, 20, 85);
-    pdf.text(`Branch: ${userDetails.branch}`, 20, 95);
-    pdf.text(`Purpose: ${userDetails.purpose}`, 20, 105);
+    pdf.text(`Full Name: ${userDetails.name}`, 20, 115);
+    pdf.text(`Roll Number: ${userDetails.rollNo}`, 20, 122);
+    pdf.text(`Class: ${userDetails.class}`, 100, 115);
+    pdf.text(`Branch: ${userDetails.branch}`, 100, 122);
+    pdf.text(`Purpose: ${userDetails.purpose}`, 20, 129);
 
-    // Request details
+    // Equipment Table Header
+    let tableStartY = 150;
+    pdf.setFillColor(0, 51, 102);
+    pdf.rect(15, tableStartY, pageWidth - 30, 15, 'F');
+    pdf.setTextColor(255, 255, 255);
+    pdf.setFontSize(10);
     pdf.setFont('helvetica', 'bold');
-    pdf.text('Requested Equipment:', 20, 125);
-    pdf.setFont('helvetica', 'normal');
+    pdf.text('S.No.', 20, tableStartY + 10);
+    pdf.text('Equipment Name', 40, tableStartY + 10);
+    pdf.text('Laboratory', 120, tableStartY + 10);
+    pdf.text('Floor', 155, tableStartY + 10);
+    pdf.text('Qty', 175, tableStartY + 10);
 
-    let yPosition = 135;
+    // Equipment Table Content
+    pdf.setTextColor(0, 0, 0);
+    pdf.setFont('helvetica', 'normal');
+    let currentY = tableStartY + 20;
+    
     selectedItems.forEach((item, index) => {
-      const itemText = `${index + 1}. ${item.name} (Qty: ${item.quantity}) - ${item.lab}, ${item.floor}`;
-      pdf.text(itemText, 20, yPosition);
-      yPosition += 10;
+      if (currentY > pageHeight - 40) {
+        pdf.addPage();
+        currentY = 20;
+      }
+
+      // Alternate row colors
+      if (index % 2 === 0) {
+        pdf.setFillColor(250, 250, 250);
+        pdf.rect(15, currentY - 5, pageWidth - 30, 12, 'F');
+      }
+
+      pdf.text(`${index + 1}`, 20, currentY + 5);
+      
+      // Truncate long equipment names
+      let equipmentName = item.name;
+      if (equipmentName.length > 35) {
+        equipmentName = equipmentName.substring(0, 32) + '...';
+      }
+      pdf.text(equipmentName, 40, currentY + 5);
+      
+      // Truncate long lab names
+      let labName = item.lab;
+      if (labName.length > 20) {
+        labName = labName.substring(0, 17) + '...';
+      }
+      pdf.text(labName, 120, currentY + 5);
+      
+      pdf.text(item.floor, 155, currentY + 5);
+      pdf.text(item.quantity.toString(), 175, currentY + 5);
+      
+      currentY += 12;
     });
 
-    // Summary
-    yPosition += 10;
-    pdf.setFont('helvetica', 'bold');
-    pdf.text(`Total Items: ${selectedItems.length}`, 20, yPosition);
-    yPosition += 10;
-    pdf.text(`Labs Involved: ${new Set(selectedItems.map(item => item.lab)).size}`, 20, yPosition);
-    yPosition += 10;
-    pdf.text(`Request Date: ${new Date().toLocaleDateString()}`, 20, yPosition);
+    // Summary Section
+    currentY += 10;
+    pdf.setDrawColor(0, 51, 102);
+    pdf.setLineWidth(1);
+    pdf.line(15, currentY, pageWidth - 15, currentY);
+    currentY += 15;
 
-    // Notice
-    yPosition += 20;
-    pdf.setFont('helvetica', 'italic');
-    pdf.text('This request is for academic purposes only. No payment is required.', 20, yPosition);
-
-    // Approvals section
-    yPosition += 20;
+    pdf.setFontSize(11);
     pdf.setFont('helvetica', 'bold');
-    pdf.text('Approvals Required:', 20, yPosition);
+    pdf.text('REQUEST SUMMARY:', 20, currentY);
     pdf.setFont('helvetica', 'normal');
-    yPosition += 15;
-    pdf.text('1. Faculty Mentor: Prof. Ashish Shirke', 20, yPosition);
-    pdf.text('Signature: _____________________', 120, yPosition);
-    yPosition += 15;
-    pdf.text('2. Dean R&D: Dr. Vinitkumar Dongre', 20, yPosition);
-    pdf.text('Signature: _____________________', 120, yPosition);
+    pdf.setFontSize(10);
+    currentY += 10;
+    pdf.text(`Total Equipment Items: ${selectedItems.length}`, 20, currentY);
+    currentY += 8;
+    pdf.text(`Number of Laboratories: ${new Set(selectedItems.map(item => item.lab)).size}`, 20, currentY);
+    currentY += 8;
+    pdf.text(`Request Submitted: ${new Date().toLocaleString('en-IN')}`, 20, currentY);
+
+    // Important Notice
+    currentY += 20;
+    pdf.setFillColor(255, 248, 220);
+    pdf.rect(15, currentY - 5, pageWidth - 30, 20, 'F');
+    pdf.setDrawColor(255, 193, 7);
+    pdf.setLineWidth(2);
+    pdf.rect(15, currentY - 5, pageWidth - 30, 20);
+    
+    pdf.setFontSize(9);
+    pdf.setFont('helvetica', 'bold');
+    pdf.text('IMPORTANT NOTICE:', 20, currentY + 5);
+    pdf.setFont('helvetica', 'normal');
+    pdf.text('• This request is for academic purposes only - No payment required', 20, currentY + 12);
+
+    // Approval Section
+    currentY += 35;
+    pdf.setFontSize(12);
+    pdf.setFont('helvetica', 'bold');
+    pdf.text('APPROVALS REQUIRED:', 20, currentY);
+    
+    pdf.setFont('helvetica', 'normal');
+    pdf.setFontSize(10);
+    currentY += 15;
+
+    // Faculty Mentor Approval
+    pdf.setDrawColor(0, 0, 0);
+    pdf.setLineWidth(0.5);
+    pdf.rect(20, currentY, 80, 25);
+    pdf.text('Faculty Mentor:', 25, currentY + 8);
+    pdf.setFont('helvetica', 'bold');
+    pdf.text('Prof. Ashish Shirke', 25, currentY + 15);
+    pdf.setFont('helvetica', 'normal');
+    pdf.text('Signature: ________________', 25, currentY + 22);
+    pdf.text('Date: ___________', 110, currentY + 22);
+
+    // Dean R&D Approval
+    pdf.rect(110, currentY, 80, 25);
+    pdf.text('Dean R&D:', 115, currentY + 8);
+    pdf.setFont('helvetica', 'bold');
+    pdf.text('Dr. Vinitkumar Dongre', 115, currentY + 15);
+    pdf.setFont('helvetica', 'normal');
+    pdf.text('Signature: ________________', 115, currentY + 22);
 
     // Footer
-    yPosition += 25;
-    pdf.setFontSize(10);
-    pdf.setFont('helvetica', 'italic');
-    pdf.text('Generated by TCET EDIC Resource Management System', 20, yPosition);
+    pdf.setFontSize(8);
+    pdf.setTextColor(128, 128, 128);
+    pdf.text('This document was generated electronically by TCET EDIC Resource Management System', pageWidth/2, pageHeight - 15, { align: 'center' });
+    pdf.text(`Generated on: ${new Date().toLocaleString('en-IN')} | Contact: edic@tcetmumbai.in`, pageWidth/2, pageHeight - 10, { align: 'center' });
 
-    // Save the PDF
-    pdf.save(`TCET_EDIC_Resource_Request_${userDetails.rollNo}_${Date.now()}.pdf`);
+    // Save the PDF with professional naming
+    const timestamp = new Date().toISOString().slice(0, 10);
+    pdf.save(`TCET_EDIC_Resource_Request_${userDetails.rollNo}_${timestamp}.pdf`);
 
     toast({
-      title: "PDF Invoice Generated",
-      description: "Your resource request invoice has been downloaded as PDF. Please get it signed by the faculty mentors.",
+      title: "Professional PDF Invoice Generated",
+      description: "Your resource request invoice has been downloaded. Please get the required approvals from faculty mentors.",
     });
 
     setShowInvoiceForm(false);
