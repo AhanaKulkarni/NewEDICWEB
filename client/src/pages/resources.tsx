@@ -584,32 +584,71 @@ export default function ResourcesLabs() {
 
     // Approval Section
     currentY += 35;
-    pdf.setFontSize(12);
-    pdf.setFont('helvetica', 'bold');
-    pdf.text('APPROVALS REQUIRED:', 20, currentY);
+    pdf.setFillColor(248, 249, 250);
+    pdf.rect(15, currentY - 5, pageWidth - 30, 50, 'F');
+    pdf.setDrawColor(0, 51, 102);
+    pdf.setLineWidth(1);
+    pdf.rect(15, currentY - 5, pageWidth - 30, 50);
     
-    pdf.setFont('helvetica', 'normal');
-    pdf.setFontSize(10);
-    currentY += 15;
+    pdf.setFontSize(14);
+    pdf.setFont('helvetica', 'bold');
+    pdf.setTextColor(0, 51, 102);
+    pdf.text('APPROVAL SIGNATURES REQUIRED', 20, currentY + 8);
+    
+    currentY += 20;
 
-    // Faculty Mentor Approval
+    // Faculty Mentor Approval Box
     pdf.setDrawColor(0, 0, 0);
-    pdf.setLineWidth(0.5);
-    pdf.rect(20, currentY, 80, 25);
-    pdf.text('Faculty Mentor:', 25, currentY + 8);
+    pdf.setLineWidth(1);
+    pdf.setFillColor(255, 255, 255);
+    pdf.rect(20, currentY, 75, 35, 'FD');
+    
+    pdf.setFontSize(10);
     pdf.setFont('helvetica', 'bold');
+    pdf.setTextColor(0, 0, 0);
+    pdf.text('FACULTY MENTOR', 25, currentY + 8);
+    pdf.setFont('helvetica', 'normal');
+    pdf.setFontSize(11);
     pdf.text('Prof. Ashish Shirke', 25, currentY + 15);
-    pdf.setFont('helvetica', 'normal');
-    pdf.text('Signature: ________________', 25, currentY + 22);
-    pdf.text('Date: ___________', 110, currentY + 22);
+    pdf.setFontSize(9);
+    pdf.text('EDIC Faculty Coordinator', 25, currentY + 21);
+    
+    // Signature line for faculty mentor
+    pdf.setLineWidth(0.5);
+    pdf.line(25, currentY + 28, 85, currentY + 28);
+    pdf.setFontSize(8);
+    pdf.text('Signature & Date', 25, currentY + 32);
 
-    // Dean R&D Approval
-    pdf.rect(110, currentY, 80, 25);
-    pdf.text('Dean R&D:', 115, currentY + 8);
+    // Dean R&D Approval Box
+    pdf.setFillColor(255, 255, 255);
+    pdf.rect(105, currentY, 75, 35, 'FD');
+    
+    pdf.setFontSize(10);
     pdf.setFont('helvetica', 'bold');
-    pdf.text('Dr. Vinitkumar Dongre', 115, currentY + 15);
+    pdf.text('DEAN R&D', 110, currentY + 8);
     pdf.setFont('helvetica', 'normal');
-    pdf.text('Signature: ________________', 115, currentY + 22);
+    pdf.setFontSize(11);
+    pdf.text('Dr. Vinitkumar Dongre', 110, currentY + 15);
+    pdf.setFontSize(9);
+    pdf.text('Dean Research & Development', 110, currentY + 21);
+    
+    // Signature line for dean
+    pdf.line(110, currentY + 28, 170, currentY + 28);
+    pdf.setFontSize(8);
+    pdf.text('Signature & Date', 110, currentY + 32);
+
+    // Instructions below signature boxes
+    currentY += 45;
+    pdf.setFillColor(255, 248, 220);
+    pdf.rect(15, currentY, pageWidth - 30, 15, 'F');
+    pdf.setDrawColor(255, 193, 7);
+    pdf.setLineWidth(1);
+    pdf.rect(15, currentY, pageWidth - 30, 15);
+    
+    pdf.setFontSize(9);
+    pdf.setFont('helvetica', 'bold');
+    pdf.setTextColor(0, 0, 0);
+    pdf.text('INSTRUCTION: Please obtain both signatures before submitting to lab technician', 20, currentY + 10);
 
     // Footer
     pdf.setFontSize(8);
