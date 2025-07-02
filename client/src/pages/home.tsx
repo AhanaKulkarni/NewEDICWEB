@@ -30,21 +30,22 @@ export default function Home() {
       Empowering TCET students to transform innovative ideas into successful ventures through mentorship, resources, and industry connections.
     </p>
     <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-      <Button
-        size="lg"
-        className="bg-[var(--tcet-blue)] hover:bg-blue-700 px-8 py-4 text-lg font-semibold"
-        onClick={() => setShowRegistrationForm(true)}
-      >
-        Join EDIC Today
-      </Button>
-      <Button
-        size="lg"
-        variant="outline"
-        className="border-[var(--tcet-blue)] text-[var(--tcet-blue)] hover:bg-[var(--tcet-blue)] hover:text-white px-8 py-4 text-lg font-semibold"
-        onClick={() => (window.location.href = '/about')}
-      >
-        Learn More
-      </Button>
+<Button
+  size="lg"
+  className="bg-[var(--tcet-blue)] hover:bg-blue-700 px-8 py-4 text-lg font-semibold"
+  onClick={() => (window.location.href = '/student-corner')}
+>
+  Join EDIC Today
+</Button>
+<Button
+  size="lg"
+  variant="outline"
+  className="border-[var(--tcet-blue)] text-[var(--tcet-blue)] hover:bg-[var(--tcet-blue)] hover:text-white px-8 py-4 text-lg font-semibold"
+  onClick={() => (window.location.href = '/student-corner')}
+>
+  Learn More
+</Button>
+
     </div>
 
     {/* Innovation Starts Here */}
