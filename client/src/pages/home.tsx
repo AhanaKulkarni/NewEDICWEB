@@ -13,49 +13,51 @@ export default function Home() {
     <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
       <Header />
 
-      {/* Hero Section */}
-      <section className="pt-24 pb-20 bg-gradient-to-br from-blue-50 to-white dark:from-gray-800 dark:to-gray-900 transition-colors duration-300">
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="flex flex-col lg:flex-row items-center gap-12">
-            <div className="flex-1 text-center lg:text-left">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[var(--tcet-dark)] dark:text-white mb-6 leading-tight">
-                Entrepreneurship Development & Innovation Cell
-              </h1>
-              <p className="text-xl text-[var(--tcet-dark)]/70 dark:text-white/70 mb-8 leading-relaxed">
-                Empowering TCET students to transform innovative ideas into successful ventures through mentorship, resources, and industry connections.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Button 
-                  size="lg" 
-                  className="bg-[var(--tcet-blue)] hover:bg-blue-700 px-8 py-4 text-lg font-semibold"
-                  onClick={() => setShowRegistrationForm(true)}
-                >
-                  Join EDIC Today
-                </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  className="border-[var(--tcet-blue)] text-[var(--tcet-blue)] hover:bg-[var(--tcet-blue)] hover:text-white px-8 py-4 text-lg font-semibold"
-                  onClick={() => window.location.href = "/about"}
-                >
-                  Learn More
-                </Button>
-              </div>
-            </div>
-            <div className="flex-1">
-              <div className="relative">
-                <div className="w-full h-96 bg-gradient-to-br from-[var(--tcet-blue)]/10 to-blue-100 dark:from-[var(--tcet-blue)]/20 dark:to-blue-900/30 rounded-lg flex items-center justify-center">
-                  <div className="text-center">
-                    <Lightbulb className="w-24 h-24 text-[var(--tcet-blue)] mx-auto mb-4" />
-                    <h3 className="text-2xl font-bold text-[var(--tcet-dark)] dark:text-white mb-2">Innovation Starts Here</h3>
-                    <p className="text-[var(--tcet-dark)]/60 dark:text-white/60">Transform your ideas into reality</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+<section
+  className="relative bg-cover bg-center bg-no-repeat pt-24 pb-20 transition-colors duration-300"
+  style={{
+    backgroundImage: `url('/attached_assets/WhatsApp Image 2025-06-27 at 23.43.51_001b3ada.jpg')`,
+  }}
+>
+  {/* Dark black overlay */}
+  <div className="absolute inset-0 bg-black/60 z-0" />
+
+  <div className="container mx-auto px-6 relative z-10 flex flex-col items-center text-center">
+    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+      Entrepreneurship Development & Innovation Cell
+    </h1>
+    <p className="text-xl text-white/80 mb-8 leading-relaxed max-w-3xl">
+      Empowering TCET students to transform innovative ideas into successful ventures through mentorship, resources, and industry connections.
+    </p>
+    <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+      <Button
+        size="lg"
+        className="bg-[var(--tcet-blue)] hover:bg-blue-700 px-8 py-4 text-lg font-semibold"
+        onClick={() => setShowRegistrationForm(true)}
+      >
+        Join EDIC Today
+      </Button>
+      <Button
+        size="lg"
+        variant="outline"
+        className="border-[var(--tcet-blue)] text-[var(--tcet-blue)] hover:bg-[var(--tcet-blue)] hover:text-white px-8 py-4 text-lg font-semibold"
+        onClick={() => (window.location.href = '/about')}
+      >
+        Learn More
+      </Button>
+    </div>
+
+    {/* Innovation Starts Here */}
+    <div className="w-full max-w-xl bg-white/80 dark:bg-white/10 backdrop-blur-md rounded-lg px-6 py-8 mt-6">
+      <div className="text-center">
+        <Lightbulb className="w-16 h-16 text-[var(--tcet-blue)] mx-auto mb-4" />
+        <h3 className="text-2xl font-bold text-[var(--tcet-dark)] dark:text-white mb-2">Innovation Starts Here</h3>
+        <p className="text-[var(--tcet-dark)]/60 dark:text-white/60">Transform your ideas into reality</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 
       {/* Quick Info Section */}
       <section className="py-20 bg-white dark:bg-gray-900">
