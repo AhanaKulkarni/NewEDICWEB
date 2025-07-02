@@ -16,7 +16,7 @@ export default function Home() {
 <section
   className="relative bg-cover bg-center bg-no-repeat pt-24 pb-20 transition-colors duration-300"
   style={{
-    backgroundImage: `url('/attached_assets/WhatsApp Image 2025-06-27 at 23.43.51_001b3ada.jpg')`,
+    backgroundImage: "url('/attached_assets/WhatsApp Image 2025-06-27 at 23.43.51_001b3ada_1751048055531.jpg')"
   }}
 >
   {/* Dark black overlay */}
