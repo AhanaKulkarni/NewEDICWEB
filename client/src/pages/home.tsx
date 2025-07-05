@@ -16,11 +16,15 @@ export default function Home() {
 <section
   className="relative bg-cover bg-center bg-no-repeat pt-24 pb-20 transition-colors duration-300"
   style={{
-    backgroundImage: "url('/attached_assets/EDIC-CORE-IMAGE.jpg')"
+    backgroundImage: `url('/attached_assets/EDIC-CORE-IMAGE.jpg')`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat'
   }}
 >
   {/* Dark black overlay */}
   <div className="absolute inset-0 bg-black/60 z-0" />
+
 
   <div className="container mx-auto px-6 relative z-10 flex flex-col items-center text-center">
     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
